@@ -1,0 +1,1519 @@
+[
+    {
+        "name": "Abiraterone",
+        "class": "Antineoplastic",
+        "risk": "High",
+        "side_effects": "Nausea, hair loss, bone marrow suppression",
+        "dangerous_combinations": [
+            "Immunosuppressants (Severe infection risk)"
+        ]
+    },
+    {
+        "name": "Acyclovir",
+        "class": "Antiviral",
+        "risk": "Medium",
+        "side_effects": "Nausea, headache, renal issues",
+        "dangerous_combinations": [
+            "Nephrotoxic drugs (Kidney damage)"
+        ]
+    },
+    {
+        "name": "Alprazolam",
+        "class": "Benzodiazepine",
+        "risk": "High",
+        "side_effects": "Drowsiness, confusion, dependence, memory issues",
+        "dangerous_combinations": [
+            "Opioids (Respiratory depression)",
+            "Alcohol (Coma risk)",
+            "Barbiturates (Lethal sedation)"
+        ]
+    },
+    {
+        "name": "Amiloride",
+        "class": "Diuretic",
+        "risk": "Medium",
+        "side_effects": "Dehydration, electrolyte imbalance, fatigue, urination",
+        "dangerous_combinations": [
+            "ACE Inhibitors (Hypotension)",
+            "NSAIDs (Decreased diuretic effect)",
+            "Digoxin (Toxicity via hypokalemia)"
+        ]
+    },
+    {
+        "name": "Amiodarone",
+        "class": "Antiarrhythmic",
+        "risk": "High",
+        "side_effects": "Pulmonary toxicity (Amiodarone), QT prolongation, bradycardia",
+        "dangerous_combinations": [
+            "Beta Blockers (Heart block)",
+            "Macrolides (QT prolongation)"
+        ]
+    },
+    {
+        "name": "Amlodipine",
+        "class": "Calcium Channel Blocker",
+        "risk": "Low",
+        "side_effects": "Edema, palpitations, flushing, dizziness",
+        "dangerous_combinations": [
+            "Beta Blockers (Bradycardia)",
+            "CYP3A4 Inhibitors (Increased levels)"
+        ]
+    },
+    {
+        "name": "Amoxicillin",
+        "class": "Antibiotic (Macrolide / Fluoroquinolone)",
+        "risk": "Medium",
+        "side_effects": "GI upset, tendon rupture (fluoro), QT prolongation",
+        "dangerous_combinations": [
+            "Statins (Myopathy)",
+            "Antacids (Reduced absorption)",
+            "Antiarrhythmics (QT prolongation)"
+        ]
+    },
+    {
+        "name": "Apixaban",
+        "class": "Anticoagulant",
+        "risk": "High",
+        "side_effects": "Hemorrhage, bruising, GI bleeding",
+        "dangerous_combinations": [
+            "NSAIDs (Severe Bleeding)",
+            "SSRIs (Bleeding)"
+        ]
+    },
+    {
+        "name": "Atenolol",
+        "class": "Beta Blocker",
+        "risk": "Medium",
+        "side_effects": "Fatigue, cold extremities, bradycardia, weight gain",
+        "dangerous_combinations": [
+            "Calcium Channel Blockers (Bradycardia)",
+            "Digoxin (Heart block)"
+        ]
+    },
+    {
+        "name": "Atorvastatin",
+        "class": "Statin",
+        "risk": "Medium",
+        "side_effects": "Muscle pain, liver enzyme elevation, digestive issues",
+        "dangerous_combinations": [
+            "Macrolides (Myopathy)",
+            "Fibrates (Rhabdomyolysis)",
+            "Grapefruit juice (CYP3A4 interactions)"
+        ]
+    },
+    {
+        "name": "Azithromycin",
+        "class": "Antibiotic (Macrolide / Fluoroquinolone)",
+        "risk": "Medium",
+        "side_effects": "GI upset, tendon rupture (fluoro), QT prolongation",
+        "dangerous_combinations": [
+            "Statins (Myopathy)",
+            "Antacids (Reduced absorption)",
+            "Antiarrhythmics (QT prolongation)"
+        ]
+    },
+    {
+        "name": "Benazepril",
+        "class": "ACE Inhibitor",
+        "risk": "Medium",
+        "side_effects": "Dry cough, hyperkalemia, fatigue, dizziness",
+        "dangerous_combinations": [
+            "NSAIDs (Reduced effect, renal stress)",
+            "ARBs (Hyperkalemia)"
+        ]
+    },
+    {
+        "name": "Bisoprolol",
+        "class": "Beta Blocker",
+        "risk": "Medium",
+        "side_effects": "Fatigue, cold extremities, bradycardia, weight gain",
+        "dangerous_combinations": [
+            "Calcium Channel Blockers (Bradycardia)",
+            "Digoxin (Heart block)"
+        ]
+    },
+    {
+        "name": "Budesonide",
+        "class": "Corticosteroid",
+        "risk": "High",
+        "side_effects": "Weight gain, osteoporosis, hyperglycemia, mood changes",
+        "dangerous_combinations": [
+            "NSAIDs (GI bleeding)",
+            "Antidiabetics (Hyperglycemia)"
+        ]
+    },
+    {
+        "name": "Bumetanide",
+        "class": "Diuretic",
+        "risk": "Medium",
+        "side_effects": "Dehydration, electrolyte imbalance, fatigue, urination",
+        "dangerous_combinations": [
+            "ACE Inhibitors (Hypotension)",
+            "NSAIDs (Decreased diuretic effect)",
+            "Digoxin (Toxicity via hypokalemia)"
+        ]
+    },
+    {
+        "name": "Buprenorphine",
+        "class": "Opioid",
+        "risk": "High",
+        "side_effects": "Constipation, respiratory depression, addiction, nausea",
+        "dangerous_combinations": [
+            "Benzodiazepines (Respiratory depression)",
+            "SSRIs (Serotonin syndrome)"
+        ]
+    },
+    {
+        "name": "Canagliflozin",
+        "class": "Antidiabetic",
+        "risk": "Medium",
+        "side_effects": "Hypoglycemia, GI upset (Metformin), weight gain",
+        "dangerous_combinations": [
+            "Beta Blockers (Masks hypoglycemia)",
+            "Insulin (Severe hypoglycemia)"
+        ]
+    },
+    {
+        "name": "Captopril",
+        "class": "ACE Inhibitor",
+        "risk": "Medium",
+        "side_effects": "Dry cough, hyperkalemia, fatigue, dizziness",
+        "dangerous_combinations": [
+            "NSAIDs (Reduced effect, renal stress)",
+            "ARBs (Hyperkalemia)"
+        ]
+    },
+    {
+        "name": "Carbamazepine",
+        "class": "Anticonvulsant",
+        "risk": "High",
+        "side_effects": "Dizziness, drowsiness, rash, weight gain",
+        "dangerous_combinations": [
+            "Oral Contraceptives (Reduced efficacy)",
+            "Other CNS depressants (Sedation)"
+        ]
+    },
+    {
+        "name": "Carvedilol",
+        "class": "Beta Blocker",
+        "risk": "Medium",
+        "side_effects": "Fatigue, cold extremities, bradycardia, weight gain",
+        "dangerous_combinations": [
+            "Calcium Channel Blockers (Bradycardia)",
+            "Digoxin (Heart block)"
+        ]
+    },
+    {
+        "name": "Celecoxib",
+        "class": "NSAID",
+        "risk": "Medium",
+        "side_effects": "GI ulceration, kidney stress, increased blood pressure",
+        "dangerous_combinations": [
+            "ACE Inhibitors (Renal failure)",
+            "SSRIs (GI Bleeding)",
+            "Anticoagulants (Bleeding)"
+        ]
+    },
+    {
+        "name": "Cephalexin",
+        "class": "Antibiotic (Macrolide / Fluoroquinolone)",
+        "risk": "Medium",
+        "side_effects": "GI upset, tendon rupture (fluoro), QT prolongation",
+        "dangerous_combinations": [
+            "Statins (Myopathy)",
+            "Antacids (Reduced absorption)",
+            "Antiarrhythmics (QT prolongation)"
+        ]
+    },
+    {
+        "name": "Cetirizine",
+        "class": "Antihistamine",
+        "risk": "Low",
+        "side_effects": "Drowsiness, dry mouth, blurred vision, dizziness",
+        "dangerous_combinations": [
+            "CNS depressants (Sedation)"
+        ]
+    },
+    {
+        "name": "Chlordiazepoxide",
+        "class": "Benzodiazepine",
+        "risk": "High",
+        "side_effects": "Drowsiness, confusion, dependence, memory issues",
+        "dangerous_combinations": [
+            "Opioids (Respiratory depression)",
+            "Alcohol (Coma risk)",
+            "Barbiturates (Lethal sedation)"
+        ]
+    },
+    {
+        "name": "Chlorpheniramine",
+        "class": "Antihistamine",
+        "risk": "Low",
+        "side_effects": "Drowsiness, dry mouth, blurred vision, dizziness",
+        "dangerous_combinations": [
+            "CNS depressants (Sedation)"
+        ]
+    },
+    {
+        "name": "Chlorthalidone",
+        "class": "Diuretic",
+        "risk": "Medium",
+        "side_effects": "Dehydration, electrolyte imbalance, fatigue, urination",
+        "dangerous_combinations": [
+            "ACE Inhibitors (Hypotension)",
+            "NSAIDs (Decreased diuretic effect)",
+            "Digoxin (Toxicity via hypokalemia)"
+        ]
+    },
+    {
+        "name": "Ciprofloxacin",
+        "class": "Antibiotic (Macrolide / Fluoroquinolone)",
+        "risk": "Medium",
+        "side_effects": "GI upset, tendon rupture (fluoro), QT prolongation",
+        "dangerous_combinations": [
+            "Statins (Myopathy)",
+            "Antacids (Reduced absorption)",
+            "Antiarrhythmics (QT prolongation)"
+        ]
+    },
+    {
+        "name": "Cisplatin",
+        "class": "Antineoplastic",
+        "risk": "High",
+        "side_effects": "Nausea, hair loss, bone marrow suppression",
+        "dangerous_combinations": [
+            "Immunosuppressants (Severe infection risk)"
+        ]
+    },
+    {
+        "name": "Citalopram",
+        "class": "SSRI / Antidepressant",
+        "risk": "High",
+        "side_effects": "Nausea, insomnia, sexual dysfunction, weight changes",
+        "dangerous_combinations": [
+            "MAOIs (Serotonin syndrome)",
+            "NSAIDs (Bleeding risk)",
+            "Tramadol (Seizure risk)"
+        ]
+    },
+    {
+        "name": "Clarithromycin",
+        "class": "Antibiotic (Macrolide / Fluoroquinolone)",
+        "risk": "Medium",
+        "side_effects": "GI upset, tendon rupture (fluoro), QT prolongation",
+        "dangerous_combinations": [
+            "Statins (Myopathy)",
+            "Antacids (Reduced absorption)",
+            "Antiarrhythmics (QT prolongation)"
+        ]
+    },
+    {
+        "name": "Clevidipine",
+        "class": "Calcium Channel Blocker",
+        "risk": "Low",
+        "side_effects": "Edema, palpitations, flushing, dizziness",
+        "dangerous_combinations": [
+            "Beta Blockers (Bradycardia)",
+            "CYP3A4 Inhibitors (Increased levels)"
+        ]
+    },
+    {
+        "name": "Clonazepam",
+        "class": "Benzodiazepine",
+        "risk": "High",
+        "side_effects": "Drowsiness, confusion, dependence, memory issues",
+        "dangerous_combinations": [
+            "Opioids (Respiratory depression)",
+            "Alcohol (Coma risk)",
+            "Barbiturates (Lethal sedation)"
+        ]
+    },
+    {
+        "name": "Codeine",
+        "class": "Opioid",
+        "risk": "High",
+        "side_effects": "Constipation, respiratory depression, addiction, nausea",
+        "dangerous_combinations": [
+            "Benzodiazepines (Respiratory depression)",
+            "SSRIs (Serotonin syndrome)"
+        ]
+    },
+    {
+        "name": "Cyclophosphamide",
+        "class": "Antineoplastic",
+        "risk": "High",
+        "side_effects": "Nausea, hair loss, bone marrow suppression",
+        "dangerous_combinations": [
+            "Immunosuppressants (Severe infection risk)"
+        ]
+    },
+    {
+        "name": "Dabigatran",
+        "class": "Anticoagulant",
+        "risk": "High",
+        "side_effects": "Hemorrhage, bruising, GI bleeding",
+        "dangerous_combinations": [
+            "NSAIDs (Severe Bleeding)",
+            "SSRIs (Bleeding)"
+        ]
+    },
+    {
+        "name": "Dapagliflozin",
+        "class": "Antidiabetic",
+        "risk": "Medium",
+        "side_effects": "Hypoglycemia, GI upset (Metformin), weight gain",
+        "dangerous_combinations": [
+            "Beta Blockers (Masks hypoglycemia)",
+            "Insulin (Severe hypoglycemia)"
+        ]
+    },
+    {
+        "name": "Desiccated thyroid",
+        "class": "Thyroid Hormone",
+        "risk": "Medium",
+        "side_effects": "Palpitations, weight loss, nervousness (if over-treated)",
+        "dangerous_combinations": [
+            "Calcium supplements (Reduced absorption)",
+            "Iron (Reduced absorption)"
+        ]
+    },
+    {
+        "name": "Dexamethasone",
+        "class": "Corticosteroid",
+        "risk": "High",
+        "side_effects": "Weight gain, osteoporosis, hyperglycemia, mood changes",
+        "dangerous_combinations": [
+            "NSAIDs (GI bleeding)",
+            "Antidiabetics (Hyperglycemia)"
+        ]
+    },
+    {
+        "name": "Dexlansoprazole",
+        "class": "Proton Pump Inhibitor",
+        "risk": "Low",
+        "side_effects": "Headache, diarrhea, B12 deficiency (long-term)",
+        "dangerous_combinations": [
+            "Clopidogrel (Reduced effect with Omeprazole)",
+            "Iron supplements (Reduced absorption)"
+        ]
+    },
+    {
+        "name": "Diazepam",
+        "class": "Benzodiazepine",
+        "risk": "High",
+        "side_effects": "Drowsiness, confusion, dependence, memory issues",
+        "dangerous_combinations": [
+            "Opioids (Respiratory depression)",
+            "Alcohol (Coma risk)",
+            "Barbiturates (Lethal sedation)"
+        ]
+    },
+    {
+        "name": "Diclofenac",
+        "class": "NSAID",
+        "risk": "Medium",
+        "side_effects": "GI ulceration, kidney stress, increased blood pressure",
+        "dangerous_combinations": [
+            "ACE Inhibitors (Renal failure)",
+            "SSRIs (GI Bleeding)",
+            "Anticoagulants (Bleeding)"
+        ]
+    },
+    {
+        "name": "Diltiazem",
+        "class": "Calcium Channel Blocker",
+        "risk": "Low",
+        "side_effects": "Edema, palpitations, flushing, dizziness",
+        "dangerous_combinations": [
+            "Beta Blockers (Bradycardia)",
+            "CYP3A4 Inhibitors (Increased levels)"
+        ]
+    },
+    {
+        "name": "Diphenhydramine",
+        "class": "Antihistamine",
+        "risk": "Low",
+        "side_effects": "Drowsiness, dry mouth, blurred vision, dizziness",
+        "dangerous_combinations": [
+            "CNS depressants (Sedation)"
+        ]
+    },
+    {
+        "name": "Dofetilide",
+        "class": "Antiarrhythmic",
+        "risk": "High",
+        "side_effects": "Pulmonary toxicity (Amiodarone), QT prolongation, bradycardia",
+        "dangerous_combinations": [
+            "Beta Blockers (Heart block)",
+            "Macrolides (QT prolongation)"
+        ]
+    },
+    {
+        "name": "Doxorubicin",
+        "class": "Antineoplastic",
+        "risk": "High",
+        "side_effects": "Nausea, hair loss, bone marrow suppression",
+        "dangerous_combinations": [
+            "Immunosuppressants (Severe infection risk)"
+        ]
+    },
+    {
+        "name": "Doxycycline",
+        "class": "Antibiotic (Macrolide / Fluoroquinolone)",
+        "risk": "Medium",
+        "side_effects": "GI upset, tendon rupture (fluoro), QT prolongation",
+        "dangerous_combinations": [
+            "Statins (Myopathy)",
+            "Antacids (Reduced absorption)",
+            "Antiarrhythmics (QT prolongation)"
+        ]
+    },
+    {
+        "name": "Edoxaban",
+        "class": "Anticoagulant",
+        "risk": "High",
+        "side_effects": "Hemorrhage, bruising, GI bleeding",
+        "dangerous_combinations": [
+            "NSAIDs (Severe Bleeding)",
+            "SSRIs (Bleeding)"
+        ]
+    },
+    {
+        "name": "Empagliflozin",
+        "class": "Antidiabetic",
+        "risk": "Medium",
+        "side_effects": "Hypoglycemia, GI upset (Metformin), weight gain",
+        "dangerous_combinations": [
+            "Beta Blockers (Masks hypoglycemia)",
+            "Insulin (Severe hypoglycemia)"
+        ]
+    },
+    {
+        "name": "Enalapril",
+        "class": "ACE Inhibitor",
+        "risk": "Medium",
+        "side_effects": "Dry cough, hyperkalemia, fatigue, dizziness",
+        "dangerous_combinations": [
+            "NSAIDs (Reduced effect, renal stress)",
+            "ARBs (Hyperkalemia)"
+        ]
+    },
+    {
+        "name": "Enoxaparin",
+        "class": "Anticoagulant",
+        "risk": "High",
+        "side_effects": "Hemorrhage, bruising, GI bleeding",
+        "dangerous_combinations": [
+            "NSAIDs (Severe Bleeding)",
+            "SSRIs (Bleeding)"
+        ]
+    },
+    {
+        "name": "Escitalopram",
+        "class": "SSRI / Antidepressant",
+        "risk": "High",
+        "side_effects": "Nausea, insomnia, sexual dysfunction, weight changes",
+        "dangerous_combinations": [
+            "MAOIs (Serotonin syndrome)",
+            "NSAIDs (Bleeding risk)",
+            "Tramadol (Seizure risk)"
+        ]
+    },
+    {
+        "name": "Esomeprazole",
+        "class": "Proton Pump Inhibitor",
+        "risk": "Low",
+        "side_effects": "Headache, diarrhea, B12 deficiency (long-term)",
+        "dangerous_combinations": [
+            "Clopidogrel (Reduced effect with Omeprazole)",
+            "Iron supplements (Reduced absorption)"
+        ]
+    },
+    {
+        "name": "Felodipine",
+        "class": "Calcium Channel Blocker",
+        "risk": "Low",
+        "side_effects": "Edema, palpitations, flushing, dizziness",
+        "dangerous_combinations": [
+            "Beta Blockers (Bradycardia)",
+            "CYP3A4 Inhibitors (Increased levels)"
+        ]
+    },
+    {
+        "name": "Fentanyl",
+        "class": "Opioid",
+        "risk": "High",
+        "side_effects": "Constipation, respiratory depression, addiction, nausea",
+        "dangerous_combinations": [
+            "Benzodiazepines (Respiratory depression)",
+            "SSRIs (Serotonin syndrome)"
+        ]
+    },
+    {
+        "name": "Fexofenadine",
+        "class": "Antihistamine",
+        "risk": "Low",
+        "side_effects": "Drowsiness, dry mouth, blurred vision, dizziness",
+        "dangerous_combinations": [
+            "CNS depressants (Sedation)"
+        ]
+    },
+    {
+        "name": "Flecainide",
+        "class": "Antiarrhythmic",
+        "risk": "High",
+        "side_effects": "Pulmonary toxicity (Amiodarone), QT prolongation, bradycardia",
+        "dangerous_combinations": [
+            "Beta Blockers (Heart block)",
+            "Macrolides (QT prolongation)"
+        ]
+    },
+    {
+        "name": "Fluorouracil",
+        "class": "Antineoplastic",
+        "risk": "High",
+        "side_effects": "Nausea, hair loss, bone marrow suppression",
+        "dangerous_combinations": [
+            "Immunosuppressants (Severe infection risk)"
+        ]
+    },
+    {
+        "name": "Fluoxetine",
+        "class": "SSRI / Antidepressant",
+        "risk": "High",
+        "side_effects": "Nausea, insomnia, sexual dysfunction, weight changes",
+        "dangerous_combinations": [
+            "MAOIs (Serotonin syndrome)",
+            "NSAIDs (Bleeding risk)",
+            "Tramadol (Seizure risk)"
+        ]
+    },
+    {
+        "name": "Fluvastatin",
+        "class": "Statin",
+        "risk": "Medium",
+        "side_effects": "Muscle pain, liver enzyme elevation, digestive issues",
+        "dangerous_combinations": [
+            "Macrolides (Myopathy)",
+            "Fibrates (Rhabdomyolysis)",
+            "Grapefruit juice (CYP3A4 interactions)"
+        ]
+    },
+    {
+        "name": "Fluvoxamine",
+        "class": "SSRI / Antidepressant",
+        "risk": "High",
+        "side_effects": "Nausea, insomnia, sexual dysfunction, weight changes",
+        "dangerous_combinations": [
+            "MAOIs (Serotonin syndrome)",
+            "NSAIDs (Bleeding risk)",
+            "Tramadol (Seizure risk)"
+        ]
+    },
+    {
+        "name": "Fosinopril",
+        "class": "ACE Inhibitor",
+        "risk": "Medium",
+        "side_effects": "Dry cough, hyperkalemia, fatigue, dizziness",
+        "dangerous_combinations": [
+            "NSAIDs (Reduced effect, renal stress)",
+            "ARBs (Hyperkalemia)"
+        ]
+    },
+    {
+        "name": "Furosemide",
+        "class": "Diuretic",
+        "risk": "Medium",
+        "side_effects": "Dehydration, electrolyte imbalance, fatigue, urination",
+        "dangerous_combinations": [
+            "ACE Inhibitors (Hypotension)",
+            "NSAIDs (Decreased diuretic effect)",
+            "Digoxin (Toxicity via hypokalemia)"
+        ]
+    },
+    {
+        "name": "Gabapentin",
+        "class": "Anticonvulsant",
+        "risk": "High",
+        "side_effects": "Dizziness, drowsiness, rash, weight gain",
+        "dangerous_combinations": [
+            "Oral Contraceptives (Reduced efficacy)",
+            "Other CNS depressants (Sedation)"
+        ]
+    },
+    {
+        "name": "Glimepiride",
+        "class": "Antidiabetic",
+        "risk": "Medium",
+        "side_effects": "Hypoglycemia, GI upset (Metformin), weight gain",
+        "dangerous_combinations": [
+            "Beta Blockers (Masks hypoglycemia)",
+            "Insulin (Severe hypoglycemia)"
+        ]
+    },
+    {
+        "name": "Glipizide",
+        "class": "Antidiabetic",
+        "risk": "Medium",
+        "side_effects": "Hypoglycemia, GI upset (Metformin), weight gain",
+        "dangerous_combinations": [
+            "Beta Blockers (Masks hypoglycemia)",
+            "Insulin (Severe hypoglycemia)"
+        ]
+    },
+    {
+        "name": "Glyburide",
+        "class": "Antidiabetic",
+        "risk": "Medium",
+        "side_effects": "Hypoglycemia, GI upset (Metformin), weight gain",
+        "dangerous_combinations": [
+            "Beta Blockers (Masks hypoglycemia)",
+            "Insulin (Severe hypoglycemia)"
+        ]
+    },
+    {
+        "name": "Heparin",
+        "class": "Anticoagulant",
+        "risk": "High",
+        "side_effects": "Hemorrhage, bruising, GI bleeding",
+        "dangerous_combinations": [
+            "NSAIDs (Severe Bleeding)",
+            "SSRIs (Bleeding)"
+        ]
+    },
+    {
+        "name": "Hydrochlorothiazide",
+        "class": "Diuretic",
+        "risk": "Medium",
+        "side_effects": "Dehydration, electrolyte imbalance, fatigue, urination",
+        "dangerous_combinations": [
+            "ACE Inhibitors (Hypotension)",
+            "NSAIDs (Decreased diuretic effect)",
+            "Digoxin (Toxicity via hypokalemia)"
+        ]
+    },
+    {
+        "name": "Hydrocodone",
+        "class": "Opioid",
+        "risk": "High",
+        "side_effects": "Constipation, respiratory depression, addiction, nausea",
+        "dangerous_combinations": [
+            "Benzodiazepines (Respiratory depression)",
+            "SSRIs (Serotonin syndrome)"
+        ]
+    },
+    {
+        "name": "Hydrocortisone",
+        "class": "Corticosteroid",
+        "risk": "High",
+        "side_effects": "Weight gain, osteoporosis, hyperglycemia, mood changes",
+        "dangerous_combinations": [
+            "NSAIDs (GI bleeding)",
+            "Antidiabetics (Hyperglycemia)"
+        ]
+    },
+    {
+        "name": "Hydromorphone",
+        "class": "Opioid",
+        "risk": "High",
+        "side_effects": "Constipation, respiratory depression, addiction, nausea",
+        "dangerous_combinations": [
+            "Benzodiazepines (Respiratory depression)",
+            "SSRIs (Serotonin syndrome)"
+        ]
+    },
+    {
+        "name": "Hydroxyzine",
+        "class": "Antihistamine",
+        "risk": "Low",
+        "side_effects": "Drowsiness, dry mouth, blurred vision, dizziness",
+        "dangerous_combinations": [
+            "CNS depressants (Sedation)"
+        ]
+    },
+    {
+        "name": "Ibuprofen",
+        "class": "NSAID",
+        "risk": "Medium",
+        "side_effects": "GI ulceration, kidney stress, increased blood pressure",
+        "dangerous_combinations": [
+            "ACE Inhibitors (Renal failure)",
+            "SSRIs (GI Bleeding)",
+            "Anticoagulants (Bleeding)"
+        ]
+    },
+    {
+        "name": "Indomethacin",
+        "class": "NSAID",
+        "risk": "Medium",
+        "side_effects": "GI ulceration, kidney stress, increased blood pressure",
+        "dangerous_combinations": [
+            "ACE Inhibitors (Renal failure)",
+            "SSRIs (GI Bleeding)",
+            "Anticoagulants (Bleeding)"
+        ]
+    },
+    {
+        "name": "Isradipine",
+        "class": "Calcium Channel Blocker",
+        "risk": "Low",
+        "side_effects": "Edema, palpitations, flushing, dizziness",
+        "dangerous_combinations": [
+            "Beta Blockers (Bradycardia)",
+            "CYP3A4 Inhibitors (Increased levels)"
+        ]
+    },
+    {
+        "name": "Ketorolac",
+        "class": "NSAID",
+        "risk": "Medium",
+        "side_effects": "GI ulceration, kidney stress, increased blood pressure",
+        "dangerous_combinations": [
+            "ACE Inhibitors (Renal failure)",
+            "SSRIs (GI Bleeding)",
+            "Anticoagulants (Bleeding)"
+        ]
+    },
+    {
+        "name": "Labetalol",
+        "class": "Beta Blocker",
+        "risk": "Medium",
+        "side_effects": "Fatigue, cold extremities, bradycardia, weight gain",
+        "dangerous_combinations": [
+            "Calcium Channel Blockers (Bradycardia)",
+            "Digoxin (Heart block)"
+        ]
+    },
+    {
+        "name": "Lamotrigine",
+        "class": "Anticonvulsant",
+        "risk": "High",
+        "side_effects": "Dizziness, drowsiness, rash, weight gain",
+        "dangerous_combinations": [
+            "Oral Contraceptives (Reduced efficacy)",
+            "Other CNS depressants (Sedation)"
+        ]
+    },
+    {
+        "name": "Lansoprazole",
+        "class": "Proton Pump Inhibitor",
+        "risk": "Low",
+        "side_effects": "Headache, diarrhea, B12 deficiency (long-term)",
+        "dangerous_combinations": [
+            "Clopidogrel (Reduced effect with Omeprazole)",
+            "Iron supplements (Reduced absorption)"
+        ]
+    },
+    {
+        "name": "Levetiracetam",
+        "class": "Anticonvulsant",
+        "risk": "High",
+        "side_effects": "Dizziness, drowsiness, rash, weight gain",
+        "dangerous_combinations": [
+            "Oral Contraceptives (Reduced efficacy)",
+            "Other CNS depressants (Sedation)"
+        ]
+    },
+    {
+        "name": "Levocetirizine",
+        "class": "Antihistamine",
+        "risk": "Low",
+        "side_effects": "Drowsiness, dry mouth, blurred vision, dizziness",
+        "dangerous_combinations": [
+            "CNS depressants (Sedation)"
+        ]
+    },
+    {
+        "name": "Levofloxacin",
+        "class": "Antibiotic (Macrolide / Fluoroquinolone)",
+        "risk": "Medium",
+        "side_effects": "GI upset, tendon rupture (fluoro), QT prolongation",
+        "dangerous_combinations": [
+            "Statins (Myopathy)",
+            "Antacids (Reduced absorption)",
+            "Antiarrhythmics (QT prolongation)"
+        ]
+    },
+    {
+        "name": "Levothyroxine",
+        "class": "Thyroid Hormone",
+        "risk": "Medium",
+        "side_effects": "Palpitations, weight loss, nervousness (if over-treated)",
+        "dangerous_combinations": [
+            "Calcium supplements (Reduced absorption)",
+            "Iron (Reduced absorption)"
+        ]
+    },
+    {
+        "name": "Liothyronine",
+        "class": "Thyroid Hormone",
+        "risk": "Medium",
+        "side_effects": "Palpitations, weight loss, nervousness (if over-treated)",
+        "dangerous_combinations": [
+            "Calcium supplements (Reduced absorption)",
+            "Iron (Reduced absorption)"
+        ]
+    },
+    {
+        "name": "Lisinopril",
+        "class": "ACE Inhibitor",
+        "risk": "Medium",
+        "side_effects": "Dry cough, hyperkalemia, fatigue, dizziness",
+        "dangerous_combinations": [
+            "NSAIDs (Reduced effect, renal stress)",
+            "ARBs (Hyperkalemia)"
+        ]
+    },
+    {
+        "name": "Loratadine",
+        "class": "Antihistamine",
+        "risk": "Low",
+        "side_effects": "Drowsiness, dry mouth, blurred vision, dizziness",
+        "dangerous_combinations": [
+            "CNS depressants (Sedation)"
+        ]
+    },
+    {
+        "name": "Lorazepam",
+        "class": "Benzodiazepine",
+        "risk": "High",
+        "side_effects": "Drowsiness, confusion, dependence, memory issues",
+        "dangerous_combinations": [
+            "Opioids (Respiratory depression)",
+            "Alcohol (Coma risk)",
+            "Barbiturates (Lethal sedation)"
+        ]
+    },
+    {
+        "name": "Lovastatin",
+        "class": "Statin",
+        "risk": "Medium",
+        "side_effects": "Muscle pain, liver enzyme elevation, digestive issues",
+        "dangerous_combinations": [
+            "Macrolides (Myopathy)",
+            "Fibrates (Rhabdomyolysis)",
+            "Grapefruit juice (CYP3A4 interactions)"
+        ]
+    },
+    {
+        "name": "Meloxicam",
+        "class": "NSAID",
+        "risk": "Medium",
+        "side_effects": "GI ulceration, kidney stress, increased blood pressure",
+        "dangerous_combinations": [
+            "ACE Inhibitors (Renal failure)",
+            "SSRIs (GI Bleeding)",
+            "Anticoagulants (Bleeding)"
+        ]
+    },
+    {
+        "name": "Metformin",
+        "class": "Antidiabetic",
+        "risk": "Medium",
+        "side_effects": "Hypoglycemia, GI upset (Metformin), weight gain",
+        "dangerous_combinations": [
+            "Beta Blockers (Masks hypoglycemia)",
+            "Insulin (Severe hypoglycemia)"
+        ]
+    },
+    {
+        "name": "Methadone",
+        "class": "Opioid",
+        "risk": "High",
+        "side_effects": "Constipation, respiratory depression, addiction, nausea",
+        "dangerous_combinations": [
+            "Benzodiazepines (Respiratory depression)",
+            "SSRIs (Serotonin syndrome)"
+        ]
+    },
+    {
+        "name": "Methotrexate",
+        "class": "Antineoplastic",
+        "risk": "High",
+        "side_effects": "Nausea, hair loss, bone marrow suppression",
+        "dangerous_combinations": [
+            "Immunosuppressants (Severe infection risk)"
+        ]
+    },
+    {
+        "name": "Methylprednisolone",
+        "class": "Corticosteroid",
+        "risk": "High",
+        "side_effects": "Weight gain, osteoporosis, hyperglycemia, mood changes",
+        "dangerous_combinations": [
+            "NSAIDs (GI bleeding)",
+            "Antidiabetics (Hyperglycemia)"
+        ]
+    },
+    {
+        "name": "Metoprolol",
+        "class": "Beta Blocker",
+        "risk": "Medium",
+        "side_effects": "Fatigue, cold extremities, bradycardia, weight gain",
+        "dangerous_combinations": [
+            "Calcium Channel Blockers (Bradycardia)",
+            "Digoxin (Heart block)"
+        ]
+    },
+    {
+        "name": "Midazolam",
+        "class": "Benzodiazepine",
+        "risk": "High",
+        "side_effects": "Drowsiness, confusion, dependence, memory issues",
+        "dangerous_combinations": [
+            "Opioids (Respiratory depression)",
+            "Alcohol (Coma risk)",
+            "Barbiturates (Lethal sedation)"
+        ]
+    },
+    {
+        "name": "Moexipril",
+        "class": "ACE Inhibitor",
+        "risk": "Medium",
+        "side_effects": "Dry cough, hyperkalemia, fatigue, dizziness",
+        "dangerous_combinations": [
+            "NSAIDs (Reduced effect, renal stress)",
+            "ARBs (Hyperkalemia)"
+        ]
+    },
+    {
+        "name": "Morphine",
+        "class": "Opioid",
+        "risk": "High",
+        "side_effects": "Constipation, respiratory depression, addiction, nausea",
+        "dangerous_combinations": [
+            "Benzodiazepines (Respiratory depression)",
+            "SSRIs (Serotonin syndrome)"
+        ]
+    },
+    {
+        "name": "Moxifloxacin",
+        "class": "Antibiotic (Macrolide / Fluoroquinolone)",
+        "risk": "Medium",
+        "side_effects": "GI upset, tendon rupture (fluoro), QT prolongation",
+        "dangerous_combinations": [
+            "Statins (Myopathy)",
+            "Antacids (Reduced absorption)",
+            "Antiarrhythmics (QT prolongation)"
+        ]
+    },
+    {
+        "name": "Nabumetone",
+        "class": "NSAID",
+        "risk": "Medium",
+        "side_effects": "GI ulceration, kidney stress, increased blood pressure",
+        "dangerous_combinations": [
+            "ACE Inhibitors (Renal failure)",
+            "SSRIs (GI Bleeding)",
+            "Anticoagulants (Bleeding)"
+        ]
+    },
+    {
+        "name": "Nadolol",
+        "class": "Beta Blocker",
+        "risk": "Medium",
+        "side_effects": "Fatigue, cold extremities, bradycardia, weight gain",
+        "dangerous_combinations": [
+            "Calcium Channel Blockers (Bradycardia)",
+            "Digoxin (Heart block)"
+        ]
+    },
+    {
+        "name": "Naproxen",
+        "class": "NSAID",
+        "risk": "Medium",
+        "side_effects": "GI ulceration, kidney stress, increased blood pressure",
+        "dangerous_combinations": [
+            "ACE Inhibitors (Renal failure)",
+            "SSRIs (GI Bleeding)",
+            "Anticoagulants (Bleeding)"
+        ]
+    },
+    {
+        "name": "Nebivolol",
+        "class": "Beta Blocker",
+        "risk": "Medium",
+        "side_effects": "Fatigue, cold extremities, bradycardia, weight gain",
+        "dangerous_combinations": [
+            "Calcium Channel Blockers (Bradycardia)",
+            "Digoxin (Heart block)"
+        ]
+    },
+    {
+        "name": "Nicardipine",
+        "class": "Calcium Channel Blocker",
+        "risk": "Low",
+        "side_effects": "Edema, palpitations, flushing, dizziness",
+        "dangerous_combinations": [
+            "Beta Blockers (Bradycardia)",
+            "CYP3A4 Inhibitors (Increased levels)"
+        ]
+    },
+    {
+        "name": "Nifedipine",
+        "class": "Calcium Channel Blocker",
+        "risk": "Low",
+        "side_effects": "Edema, palpitations, flushing, dizziness",
+        "dangerous_combinations": [
+            "Beta Blockers (Bradycardia)",
+            "CYP3A4 Inhibitors (Increased levels)"
+        ]
+    },
+    {
+        "name": "Nimodipine",
+        "class": "Calcium Channel Blocker",
+        "risk": "Low",
+        "side_effects": "Edema, palpitations, flushing, dizziness",
+        "dangerous_combinations": [
+            "Beta Blockers (Bradycardia)",
+            "CYP3A4 Inhibitors (Increased levels)"
+        ]
+    },
+    {
+        "name": "Omeprazole",
+        "class": "Proton Pump Inhibitor",
+        "risk": "Low",
+        "side_effects": "Headache, diarrhea, B12 deficiency (long-term)",
+        "dangerous_combinations": [
+            "Clopidogrel (Reduced effect with Omeprazole)",
+            "Iron supplements (Reduced absorption)"
+        ]
+    },
+    {
+        "name": "Oseltamivir",
+        "class": "Antiviral",
+        "risk": "Medium",
+        "side_effects": "Nausea, headache, renal issues",
+        "dangerous_combinations": [
+            "Nephrotoxic drugs (Kidney damage)"
+        ]
+    },
+    {
+        "name": "Oxazepam",
+        "class": "Benzodiazepine",
+        "risk": "High",
+        "side_effects": "Drowsiness, confusion, dependence, memory issues",
+        "dangerous_combinations": [
+            "Opioids (Respiratory depression)",
+            "Alcohol (Coma risk)",
+            "Barbiturates (Lethal sedation)"
+        ]
+    },
+    {
+        "name": "Oxycodone",
+        "class": "Opioid",
+        "risk": "High",
+        "side_effects": "Constipation, respiratory depression, addiction, nausea",
+        "dangerous_combinations": [
+            "Benzodiazepines (Respiratory depression)",
+            "SSRIs (Serotonin syndrome)"
+        ]
+    },
+    {
+        "name": "Paclitaxel",
+        "class": "Antineoplastic",
+        "risk": "High",
+        "side_effects": "Nausea, hair loss, bone marrow suppression",
+        "dangerous_combinations": [
+            "Immunosuppressants (Severe infection risk)"
+        ]
+    },
+    {
+        "name": "Pantoprazole",
+        "class": "Proton Pump Inhibitor",
+        "risk": "Low",
+        "side_effects": "Headache, diarrhea, B12 deficiency (long-term)",
+        "dangerous_combinations": [
+            "Clopidogrel (Reduced effect with Omeprazole)",
+            "Iron supplements (Reduced absorption)"
+        ]
+    },
+    {
+        "name": "Paroxetine",
+        "class": "SSRI / Antidepressant",
+        "risk": "High",
+        "side_effects": "Nausea, insomnia, sexual dysfunction, weight changes",
+        "dangerous_combinations": [
+            "MAOIs (Serotonin syndrome)",
+            "NSAIDs (Bleeding risk)",
+            "Tramadol (Seizure risk)"
+        ]
+    },
+    {
+        "name": "Paxlovid",
+        "class": "Antiviral",
+        "risk": "Medium",
+        "side_effects": "Nausea, headache, renal issues",
+        "dangerous_combinations": [
+            "Nephrotoxic drugs (Kidney damage)"
+        ]
+    },
+    {
+        "name": "Perindopril",
+        "class": "ACE Inhibitor",
+        "risk": "Medium",
+        "side_effects": "Dry cough, hyperkalemia, fatigue, dizziness",
+        "dangerous_combinations": [
+            "NSAIDs (Reduced effect, renal stress)",
+            "ARBs (Hyperkalemia)"
+        ]
+    },
+    {
+        "name": "Phenytoin",
+        "class": "Anticonvulsant",
+        "risk": "High",
+        "side_effects": "Dizziness, drowsiness, rash, weight gain",
+        "dangerous_combinations": [
+            "Oral Contraceptives (Reduced efficacy)",
+            "Other CNS depressants (Sedation)"
+        ]
+    },
+    {
+        "name": "Pioglitazone",
+        "class": "Antidiabetic",
+        "risk": "Medium",
+        "side_effects": "Hypoglycemia, GI upset (Metformin), weight gain",
+        "dangerous_combinations": [
+            "Beta Blockers (Masks hypoglycemia)",
+            "Insulin (Severe hypoglycemia)"
+        ]
+    },
+    {
+        "name": "Piroxicam",
+        "class": "NSAID",
+        "risk": "Medium",
+        "side_effects": "GI ulceration, kidney stress, increased blood pressure",
+        "dangerous_combinations": [
+            "ACE Inhibitors (Renal failure)",
+            "SSRIs (GI Bleeding)",
+            "Anticoagulants (Bleeding)"
+        ]
+    },
+    {
+        "name": "Pitavastatin",
+        "class": "Statin",
+        "risk": "Medium",
+        "side_effects": "Muscle pain, liver enzyme elevation, digestive issues",
+        "dangerous_combinations": [
+            "Macrolides (Myopathy)",
+            "Fibrates (Rhabdomyolysis)",
+            "Grapefruit juice (CYP3A4 interactions)"
+        ]
+    },
+    {
+        "name": "Pravastatin",
+        "class": "Statin",
+        "risk": "Medium",
+        "side_effects": "Muscle pain, liver enzyme elevation, digestive issues",
+        "dangerous_combinations": [
+            "Macrolides (Myopathy)",
+            "Fibrates (Rhabdomyolysis)",
+            "Grapefruit juice (CYP3A4 interactions)"
+        ]
+    },
+    {
+        "name": "Prednisolone",
+        "class": "Corticosteroid",
+        "risk": "High",
+        "side_effects": "Weight gain, osteoporosis, hyperglycemia, mood changes",
+        "dangerous_combinations": [
+            "NSAIDs (GI bleeding)",
+            "Antidiabetics (Hyperglycemia)"
+        ]
+    },
+    {
+        "name": "Prednisone",
+        "class": "Corticosteroid",
+        "risk": "High",
+        "side_effects": "Weight gain, osteoporosis, hyperglycemia, mood changes",
+        "dangerous_combinations": [
+            "NSAIDs (GI bleeding)",
+            "Antidiabetics (Hyperglycemia)"
+        ]
+    },
+    {
+        "name": "Pregabalin",
+        "class": "Anticonvulsant",
+        "risk": "High",
+        "side_effects": "Dizziness, drowsiness, rash, weight gain",
+        "dangerous_combinations": [
+            "Oral Contraceptives (Reduced efficacy)",
+            "Other CNS depressants (Sedation)"
+        ]
+    },
+    {
+        "name": "Propafenone",
+        "class": "Antiarrhythmic",
+        "risk": "High",
+        "side_effects": "Pulmonary toxicity (Amiodarone), QT prolongation, bradycardia",
+        "dangerous_combinations": [
+            "Beta Blockers (Heart block)",
+            "Macrolides (QT prolongation)"
+        ]
+    },
+    {
+        "name": "Propranolol",
+        "class": "Beta Blocker",
+        "risk": "Medium",
+        "side_effects": "Fatigue, cold extremities, bradycardia, weight gain",
+        "dangerous_combinations": [
+            "Calcium Channel Blockers (Bradycardia)",
+            "Digoxin (Heart block)"
+        ]
+    },
+    {
+        "name": "Quinapril",
+        "class": "ACE Inhibitor",
+        "risk": "Medium",
+        "side_effects": "Dry cough, hyperkalemia, fatigue, dizziness",
+        "dangerous_combinations": [
+            "NSAIDs (Reduced effect, renal stress)",
+            "ARBs (Hyperkalemia)"
+        ]
+    },
+    {
+        "name": "Rabeprazole",
+        "class": "Proton Pump Inhibitor",
+        "risk": "Low",
+        "side_effects": "Headache, diarrhea, B12 deficiency (long-term)",
+        "dangerous_combinations": [
+            "Clopidogrel (Reduced effect with Omeprazole)",
+            "Iron supplements (Reduced absorption)"
+        ]
+    },
+    {
+        "name": "Ramipril",
+        "class": "ACE Inhibitor",
+        "risk": "Medium",
+        "side_effects": "Dry cough, hyperkalemia, fatigue, dizziness",
+        "dangerous_combinations": [
+            "NSAIDs (Reduced effect, renal stress)",
+            "ARBs (Hyperkalemia)"
+        ]
+    },
+    {
+        "name": "Remdesivir",
+        "class": "Antiviral",
+        "risk": "Medium",
+        "side_effects": "Nausea, headache, renal issues",
+        "dangerous_combinations": [
+            "Nephrotoxic drugs (Kidney damage)"
+        ]
+    },
+    {
+        "name": "Rivaroxaban",
+        "class": "Anticoagulant",
+        "risk": "High",
+        "side_effects": "Hemorrhage, bruising, GI bleeding",
+        "dangerous_combinations": [
+            "NSAIDs (Severe Bleeding)",
+            "SSRIs (Bleeding)"
+        ]
+    },
+    {
+        "name": "Rosuvastatin",
+        "class": "Statin",
+        "risk": "Medium",
+        "side_effects": "Muscle pain, liver enzyme elevation, digestive issues",
+        "dangerous_combinations": [
+            "Macrolides (Myopathy)",
+            "Fibrates (Rhabdomyolysis)",
+            "Grapefruit juice (CYP3A4 interactions)"
+        ]
+    },
+    {
+        "name": "Sertraline",
+        "class": "SSRI / Antidepressant",
+        "risk": "High",
+        "side_effects": "Nausea, insomnia, sexual dysfunction, weight changes",
+        "dangerous_combinations": [
+            "MAOIs (Serotonin syndrome)",
+            "NSAIDs (Bleeding risk)",
+            "Tramadol (Seizure risk)"
+        ]
+    },
+    {
+        "name": "Simvastatin",
+        "class": "Statin",
+        "risk": "Medium",
+        "side_effects": "Muscle pain, liver enzyme elevation, digestive issues",
+        "dangerous_combinations": [
+            "Macrolides (Myopathy)",
+            "Fibrates (Rhabdomyolysis)",
+            "Grapefruit juice (CYP3A4 interactions)"
+        ]
+    },
+    {
+        "name": "Sitagliptin",
+        "class": "Antidiabetic",
+        "risk": "Medium",
+        "side_effects": "Hypoglycemia, GI upset (Metformin), weight gain",
+        "dangerous_combinations": [
+            "Beta Blockers (Masks hypoglycemia)",
+            "Insulin (Severe hypoglycemia)"
+        ]
+    },
+    {
+        "name": "Sotalol",
+        "class": "Beta Blocker",
+        "risk": "Medium",
+        "side_effects": "Fatigue, cold extremities, bradycardia, weight gain",
+        "dangerous_combinations": [
+            "Calcium Channel Blockers (Bradycardia)",
+            "Digoxin (Heart block)"
+        ]
+    },
+    {
+        "name": "Sotalol",
+        "class": "Antiarrhythmic",
+        "risk": "High",
+        "side_effects": "Pulmonary toxicity (Amiodarone), QT prolongation, bradycardia",
+        "dangerous_combinations": [
+            "Beta Blockers (Heart block)",
+            "Macrolides (QT prolongation)"
+        ]
+    },
+    {
+        "name": "Spironolactone",
+        "class": "Diuretic",
+        "risk": "Medium",
+        "side_effects": "Dehydration, electrolyte imbalance, fatigue, urination",
+        "dangerous_combinations": [
+            "ACE Inhibitors (Hypotension)",
+            "NSAIDs (Decreased diuretic effect)",
+            "Digoxin (Toxicity via hypokalemia)"
+        ]
+    },
+    {
+        "name": "Temazepam",
+        "class": "Benzodiazepine",
+        "risk": "High",
+        "side_effects": "Drowsiness, confusion, dependence, memory issues",
+        "dangerous_combinations": [
+            "Opioids (Respiratory depression)",
+            "Alcohol (Coma risk)",
+            "Barbiturates (Lethal sedation)"
+        ]
+    },
+    {
+        "name": "Tenofovir",
+        "class": "Antiviral",
+        "risk": "Medium",
+        "side_effects": "Nausea, headache, renal issues",
+        "dangerous_combinations": [
+            "Nephrotoxic drugs (Kidney damage)"
+        ]
+    },
+    {
+        "name": "Timolol",
+        "class": "Beta Blocker",
+        "risk": "Medium",
+        "side_effects": "Fatigue, cold extremities, bradycardia, weight gain",
+        "dangerous_combinations": [
+            "Calcium Channel Blockers (Bradycardia)",
+            "Digoxin (Heart block)"
+        ]
+    },
+    {
+        "name": "Topiramate",
+        "class": "Anticonvulsant",
+        "risk": "High",
+        "side_effects": "Dizziness, drowsiness, rash, weight gain",
+        "dangerous_combinations": [
+            "Oral Contraceptives (Reduced efficacy)",
+            "Other CNS depressants (Sedation)"
+        ]
+    },
+    {
+        "name": "Torsemide",
+        "class": "Diuretic",
+        "risk": "Medium",
+        "side_effects": "Dehydration, electrolyte imbalance, fatigue, urination",
+        "dangerous_combinations": [
+            "ACE Inhibitors (Hypotension)",
+            "NSAIDs (Decreased diuretic effect)",
+            "Digoxin (Toxicity via hypokalemia)"
+        ]
+    },
+    {
+        "name": "Tramadol",
+        "class": "Opioid",
+        "risk": "High",
+        "side_effects": "Constipation, respiratory depression, addiction, nausea",
+        "dangerous_combinations": [
+            "Benzodiazepines (Respiratory depression)",
+            "SSRIs (Serotonin syndrome)"
+        ]
+    },
+    {
+        "name": "Trandolapril",
+        "class": "ACE Inhibitor",
+        "risk": "Medium",
+        "side_effects": "Dry cough, hyperkalemia, fatigue, dizziness",
+        "dangerous_combinations": [
+            "NSAIDs (Reduced effect, renal stress)",
+            "ARBs (Hyperkalemia)"
+        ]
+    },
+    {
+        "name": "Valacyclovir",
+        "class": "Antiviral",
+        "risk": "Medium",
+        "side_effects": "Nausea, headache, renal issues",
+        "dangerous_combinations": [
+            "Nephrotoxic drugs (Kidney damage)"
+        ]
+    },
+    {
+        "name": "Valproic Acid",
+        "class": "Anticonvulsant",
+        "risk": "High",
+        "side_effects": "Dizziness, drowsiness, rash, weight gain",
+        "dangerous_combinations": [
+            "Oral Contraceptives (Reduced efficacy)",
+            "Other CNS depressants (Sedation)"
+        ]
+    },
+    {
+        "name": "Verapamil",
+        "class": "Calcium Channel Blocker",
+        "risk": "Low",
+        "side_effects": "Edema, palpitations, flushing, dizziness",
+        "dangerous_combinations": [
+            "Beta Blockers (Bradycardia)",
+            "CYP3A4 Inhibitors (Increased levels)"
+        ]
+    },
+    {
+        "name": "Vilazodone",
+        "class": "SSRI / Antidepressant",
+        "risk": "High",
+        "side_effects": "Nausea, insomnia, sexual dysfunction, weight changes",
+        "dangerous_combinations": [
+            "MAOIs (Serotonin syndrome)",
+            "NSAIDs (Bleeding risk)",
+            "Tramadol (Seizure risk)"
+        ]
+    },
+    {
+        "name": "Vortioxetine",
+        "class": "SSRI / Antidepressant",
+        "risk": "High",
+        "side_effects": "Nausea, insomnia, sexual dysfunction, weight changes",
+        "dangerous_combinations": [
+            "MAOIs (Serotonin syndrome)",
+            "NSAIDs (Bleeding risk)",
+            "Tramadol (Seizure risk)"
+        ]
+    },
+    {
+        "name": "Warfarin",
+        "class": "Anticoagulant",
+        "risk": "High",
+        "side_effects": "Hemorrhage, bruising, GI bleeding",
+        "dangerous_combinations": [
+            "NSAIDs (Severe Bleeding)",
+            "SSRIs (Bleeding)"
+        ]
+    }
+]
