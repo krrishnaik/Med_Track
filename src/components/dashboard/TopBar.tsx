@@ -214,31 +214,43 @@ export default function TopBar() {
   // ── Existing auth logic (UNTOUCHED) ──────────────────────────────────
   const [displayName, setDisplayName] = useState('User');
   const [initial, setInitial] = useState('U');
+  const [authUser, setAuthUser] = useState<any>(null);
 
   useEffect(() => {
-    const unsub = onAuthStateChanged(auth, async (user) => {
+    const unsub = onAuthStateChanged(auth, (user) => {
       if (user) {
-        let name = user.email?.split('@')[0] || 'User'; // Fallback
-        if (user.uid) {
-          try {
-            const db = getFirestore();
-            const docSnap = await getDoc(doc(db, 'users', user.uid));
-            if (docSnap.exists() && docSnap.data().name) {
-              name = docSnap.data().name;
-            }
-          } catch (error) {
-            console.error("Failed to fetch user profile in TopBar", error);
-          }
-        }
-        setDisplayName(name);
-        setInitial(name.charAt(0).toUpperCase());
+        setAuthUser(user);
       } else {
+        setAuthUser(null);
         setDisplayName('User');
         setInitial('U');
       }
     });
     return () => unsub();
   }, []);
+
+  useEffect(() => {
+    console.log("⏱️ Auth Check [TopBar]:", authUser ? "User Found: " + authUser.uid : "Still Null...");
+    if (!authUser) return;
+
+    const fetchProfile = async () => {
+      console.log("📡 Triggering Firestore Fetch [TopBar] for:", authUser.uid);
+      let name = authUser.email?.split('@')[0] || 'User';
+      try {
+        const db = getFirestore();
+        const docSnap = await getDoc(doc(db, 'users', authUser.uid));
+        if (docSnap.exists() && docSnap.data().name) {
+          name = docSnap.data().name;
+        }
+      } catch (error) {
+        console.error("Failed to fetch user profile in TopBar", error);
+      }
+      setDisplayName(name);
+      setInitial(name.charAt(0).toUpperCase());
+    };
+
+    fetchProfile();
+  }, [authUser?.uid]);
 
   const handleSignOut = async () => {
     await signOut(auth);

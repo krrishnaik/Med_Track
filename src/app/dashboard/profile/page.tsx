@@ -24,34 +24,15 @@ export default function ProfilePage() {
   const [stats, setStats] = useState({
     totalChecks: 0, interactions: 0, safe: 0, cascades: 0, drugs: 0, lastCheck: 'Never',
   });
-
   useEffect(() => {
-    const unsub = onAuthStateChanged(auth, async (u) => {
-      if (u) { 
-        if (!u.uid) {
-          setUser({ ...u, displayName: u.email?.split('@')[0] || 'User' } as User);
-          setIsLoading(false);
-          return;
-        }
-        try {
-          const db = getFirestore();
-          const docRef = doc(db, 'users', u.uid);
-          const docSnap = await getDoc(docRef);
-          
-          if (docSnap.exists() && docSnap.data().name) {
-            setUser({ ...u, displayName: docSnap.data().name } as User);
-          } else {
-            setUser({ ...u, displayName: u.email?.split('@')[0] || 'User' } as User);
-          }
-        } catch (error) {
-          console.error("Failed to fetch user profile", error);
-          setUser({ ...u, displayName: u.email?.split('@')[0] || 'User' } as User);
-        }
-      } else { 
-        setUser(null); 
-        setStats({ totalChecks: 0, interactions: 0, safe: 0, cascades: 0, drugs: 0, lastCheck: 'Never' }); 
+    const unsub = onAuthStateChanged(auth, (u) => {
+      if (u) {
+        setUser(u);
+      } else {
+        setUser(null);
+        setStats({ totalChecks: 0, interactions: 0, safe: 0, cascades: 0, drugs: 0, lastCheck: 'Never' });
+        setIsLoading(false);
       }
-      setIsLoading(false);
     });
 
     const calculateStats = () => {
@@ -83,6 +64,32 @@ export default function ProfilePage() {
     window.addEventListener('medtrack:history-updated', calculateStats);
     return () => { unsub(); window.removeEventListener('medtrack:history-updated', calculateStats); };
   }, []);
+
+  useEffect(() => {
+    console.log("⏱️ Auth Check:", user ? "User Found: " + user.uid : "Still Null...");
+    if (!user) return; // Stay in loading state if null
+
+    const fetchProfile = async () => {
+      console.log("📡 Triggering Firestore Fetch for:", user.uid);
+      try {
+        const db = getFirestore();
+        const docSnap = await getDoc(doc(db, 'users', user.uid));
+        
+        if (docSnap.exists() && docSnap.data().name) {
+          setUser((prev) => prev ? { ...prev, displayName: docSnap.data().name } as User : prev);
+        } else {
+          setUser((prev) => prev ? { ...prev, displayName: prev.email?.split('@')[0] || 'User' } as User : prev);
+        }
+      } catch (error) {
+        console.error("Failed to fetch user profile", error);
+        setUser((prev) => prev ? { ...prev, displayName: prev.email?.split('@')[0] || 'User' } as User : prev);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchProfile();
+  }, [user?.uid]);
   // ── End existing logic ────────────────────────────────────────────────────
 
   const displayName = user?.displayName || user?.email?.split('@')[0] || 'User';
