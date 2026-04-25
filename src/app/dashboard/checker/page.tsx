@@ -7,6 +7,8 @@ import { saveCheck, getChecks } from '@/lib/historyService';
 import { LanguageSelector } from '@/components/dashboard/LanguageSelector';
 import { useTranslation, getSpecialists, LANGUAGE_OPTIONS } from '@/components/dashboard/translations';
 
+const API = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
+
 export default function CheckerPage() {
   const { t, lang, setLang } = useTranslation();
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -82,7 +84,7 @@ export default function CheckerPage() {
       reader.onload = async () => {
         const base64Image = reader.result as string;
         
-        const response = await fetch('/api/scan-prescription', {
+        const response = await fetch(`${API}/api/scan-prescription`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ image: base64Image })
@@ -125,7 +127,7 @@ export default function CheckerPage() {
       setIsProcessingAudio(true);
       setLiveTranscript('');
       try {
-        const response = await fetch('/api/extract-medications', {
+        const response = await fetch(`${API}/api/extract-medications`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ transcript }),
@@ -231,7 +233,7 @@ export default function CheckerPage() {
       const pastDrugs = history.flatMap(h => h.medications.map(m => m.name));
 
       // 1. CHANGED to relative path so it works locally and on Vercel
-      const response = await fetch('/api/check-interactions', {
+      const response = await fetch(`${API}/api/check-interactions`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ 

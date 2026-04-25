@@ -5,7 +5,7 @@ import { useState, useEffect, useCallback } from 'react';
 import clsx from 'clsx';
 import { createPortal } from 'react-dom';
 
-const API = 'http://localhost:5000';
+const API = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
 
 export default function DrugLibraryPage() {
   const [lettersData, setLettersData] = useState<Record<string, string[]>>({});

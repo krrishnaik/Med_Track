@@ -12,7 +12,7 @@
  * ONE CALL does everything. Do NOT call /analyze separately (it's commented out in main.py).
  */
 
-const API = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+const API = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
 
 // ─────────────────────────────────────────────────────────────────
 // TYPES — mirrors analyzer.py Pydantic models exactly
