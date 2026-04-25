@@ -11,7 +11,10 @@ export default function DashboardLayout({
       <Sidebar />
       <TopBar />
       <main className="flex-1 pl-[280px] pt-[72px]">
-        <div className="p-8 max-w-[1200px] mx-auto animate-fade-up">
+        <div 
+          className="p-8 max-w-[1200px] mx-auto" 
+          style={{ opacity: 0, animation: 'fadeIn 0.3s ease-out forwards' }}
+        >
           {children}
         </div>
       </main>

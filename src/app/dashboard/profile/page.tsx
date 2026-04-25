@@ -76,7 +76,9 @@ export default function ProfilePage() {
         const docSnap = await getDoc(doc(db, 'users', user.uid));
         
         if (docSnap.exists() && docSnap.data().name) {
-          setUser((prev) => prev ? { ...prev, displayName: docSnap.data().name } as User : prev);
+          const fetchedName = docSnap.data().name;
+          localStorage.setItem('user_name_cache', fetchedName);
+          setUser((prev) => prev ? { ...prev, displayName: fetchedName } as User : prev);
         } else {
           setUser((prev) => prev ? { ...prev, displayName: prev.email?.split('@')[0] || 'User' } as User : prev);
         }
@@ -92,7 +94,8 @@ export default function ProfilePage() {
   }, [user?.uid]);
   // ── End existing logic ────────────────────────────────────────────────────
 
-  const displayName = user?.displayName || user?.email?.split('@')[0] || 'User';
+  const cachedName = typeof window !== 'undefined' ? localStorage.getItem('user_name_cache') : null;
+  const displayName = (user?.displayName && user.displayName !== 'User') ? user.displayName : (cachedName || user?.email?.split('@')[0] || 'User');
   const email = user?.email || 'No email provided';
   const initial = displayName.charAt(0).toUpperCase();
 

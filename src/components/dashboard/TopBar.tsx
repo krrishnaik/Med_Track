@@ -211,9 +211,18 @@ function NotificationPanel({ open, onClose }: { open: boolean; onClose: () => vo
    TopBar Component
    ══════════════════════════════════════════════════════════════════════════ */
 export default function TopBar() {
-  // ── Existing auth logic (UNTOUCHED) ──────────────────────────────────
-  const [displayName, setDisplayName] = useState('User');
-  const [initial, setInitial] = useState('U');
+  const [displayName, setDisplayName] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return localStorage.getItem('user_name_cache') || 'User';
+    }
+    return 'User';
+  });
+  const [initial, setInitial] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return (localStorage.getItem('user_name_cache') || 'U').charAt(0).toUpperCase();
+    }
+    return 'U';
+  });
   const [authUser, setAuthUser] = useState<any>(null);
 
   useEffect(() => {
@@ -241,6 +250,7 @@ export default function TopBar() {
         const docSnap = await getDoc(doc(db, 'users', authUser.uid));
         if (docSnap.exists() && docSnap.data().name) {
           name = docSnap.data().name;
+          localStorage.setItem('user_name_cache', name);
         }
       } catch (error) {
         console.error("Failed to fetch user profile in TopBar", error);
@@ -257,6 +267,7 @@ export default function TopBar() {
     setDisplayName('User');
     setInitial('U');
     localStorage.removeItem('medtrack_history');
+    localStorage.removeItem('user_name_cache');
     localStorage.clear();
     window.location.href = '/login';
   };

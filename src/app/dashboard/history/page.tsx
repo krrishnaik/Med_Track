@@ -216,7 +216,45 @@ export default function HistoryPage() {
     // subscribeToHistory will fire & update state automatically
   };
 
-  if (!mounted) return null;
+  if (!mounted) {
+    return (
+      <div className="space-y-8 max-w-4xl mx-auto">
+        {/* Header Skeleton */}
+        <div className="flex items-end justify-between">
+          <div>
+            <div className="h-10 w-72 bg-slate-200/60 rounded-lg animate-pulse mb-3"></div>
+            <div className="h-6 w-96 bg-slate-100 rounded-lg animate-pulse"></div>
+          </div>
+        </div>
+
+        {/* List Skeleton */}
+        <div className="space-y-4">
+          {[1, 2, 3].map((i) => (
+            <div key={i} className="bg-white rounded-2xl border border-slate-100 shadow-sm p-5 flex items-start gap-4">
+              <div className="shrink-0 w-10 h-10 rounded-full bg-slate-100 animate-pulse"></div>
+              <div className="flex-1 py-1">
+                <div className="flex gap-2 mb-3">
+                  <div className="h-5 w-20 bg-slate-100 rounded-full animate-pulse"></div>
+                  <div className="h-5 w-32 bg-slate-50 rounded-full animate-pulse"></div>
+                </div>
+                <div className="flex gap-2 mb-4">
+                  <div className="h-6 w-24 bg-slate-100 rounded-full animate-pulse"></div>
+                  <div className="h-6 w-28 bg-slate-100 rounded-full animate-pulse"></div>
+                </div>
+                <div className="h-4 w-3/4 bg-slate-50 rounded animate-pulse mb-2"></div>
+                <div className="h-4 w-1/2 bg-slate-50 rounded animate-pulse"></div>
+              </div>
+              <div className="flex items-center gap-2 pt-1">
+                <div className="w-8 h-8 rounded-lg bg-slate-50 animate-pulse"></div>
+                <div className="w-8 h-8 rounded-lg bg-slate-50 animate-pulse"></div>
+                <div className="w-8 h-8 rounded-lg bg-slate-50 animate-pulse"></div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-8 max-w-4xl mx-auto">
