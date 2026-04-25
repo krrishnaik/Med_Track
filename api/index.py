@@ -41,7 +41,7 @@ def get_drug_details(drug_name):
 # -----------------
 
 def run_agent_analysis(medications, context, language="English"):
-    GROQ_API_KEY = "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"
+    GROQ_API_KEY = os.environ.get("GROQ_API_KEY")
     
     # Find active interactions for the user's checklist
     results = []
@@ -179,7 +179,7 @@ def scan_prescription():
     if base64_image.startswith('data:'):
         base64_image = base64_image.split(',')[1]
 
-    GROQ_API_KEY = "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"
+    GROQ_API_KEY = os.environ.get("GROQ_API_KEY")
     headers = {
         "Authorization": f"Bearer {GROQ_API_KEY}",
         "Content-Type": "application/json"
@@ -234,7 +234,7 @@ def extract_medications():
         return jsonify({"error": "Empty transcript"}), 400
 
     # Use Groq to extract medications from the transcript
-    GROQ_API_KEY = "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"
+    GROQ_API_KEY = os.environ.get("GROQ_API_KEY")
     groq_headers = {
         "Authorization": f"Bearer {GROQ_API_KEY}",
         "Content-Type": "application/json"
