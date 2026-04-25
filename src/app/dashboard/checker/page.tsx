@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useRef } from 'react';
-import { Pill, Beaker, Plus, Activity, AlertCircle, PlayCircle, ShieldCheck, RefreshCw, AlertTriangle, Download, CheckCircle2, Camera, Volume2, VolumeX } from 'lucide-react';
+import { useState, useRef, useEffect } from 'react';
+import { Pill, Beaker, Plus, Activity, AlertCircle, PlayCircle, ShieldCheck, RefreshCw, AlertTriangle, Download, CheckCircle2, Camera, Volume2, VolumeX, Mic, MicOff } from 'lucide-react';
 import clsx from 'clsx';
 import { saveCheck, getChecks } from '@/lib/historyService';
 import { LanguageSelector } from '@/components/dashboard/LanguageSelector';
@@ -12,6 +12,12 @@ export default function CheckerPage() {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [scanning, setScanning] = useState(false);
   const [reading, setReading] = useState(false);
+  const [isRecording, setIsRecording] = useState(false);
+  const [isProcessingAudio, setIsProcessingAudio] = useState(false);
+  const [liveTranscript, setLiveTranscript] = useState('');
+  
+  const recognitionRef = useRef<any>(null);
+  const finalTranscriptRef = useRef('');
   
   const [analyzing, setAnalyzing]   = useState(false);
   const [results, setResults]       = useState<any>(null);
@@ -100,6 +106,106 @@ export default function CheckerPage() {
     } finally {
       setScanning(false);
       if (fileInputRef.current) fileInputRef.current.value = '';
+    }
+  };
+
+  const toggleRecording = async () => {
+    if (isRecording) {
+      // Stop recording and process the collected transcript
+      recognitionRef.current?.stop();
+      setIsRecording(false);
+      
+      const transcript = finalTranscriptRef.current.trim();
+      if (!transcript) {
+        setLiveTranscript('');
+        return;
+      }
+      
+      // Send transcript to Groq for medication extraction
+      setIsProcessingAudio(true);
+      setLiveTranscript('');
+      try {
+        const response = await fetch('/api/extract-medications', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ transcript }),
+        });
+
+        if (!response.ok) throw new Error('Failed to extract medications');
+
+        const data = await response.json();
+        if (data.medications && data.medications.length > 0) {
+          const newMeds = data.medications.map((m: any) => ({
+            name: m.name || '',
+            dose: m.dose || '',
+            specialist: m.specialist || 'Primary Care'
+          }));
+          setMedications(newMeds);
+        }
+      } catch (error) {
+        console.error('Medication extraction error:', error);
+        alert('Failed to extract medications from voice. Please try again.');
+      } finally {
+        setIsProcessingAudio(false);
+      }
+      return;
+    }
+
+    // Start recording
+    const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
+    if (!SpeechRecognition) {
+      alert('Voice dictation is not supported in this browser. Please use Chrome or Edge.');
+      return;
+    }
+
+    const recognition = new SpeechRecognition();
+    recognition.continuous = true;
+    recognition.interimResults = true;
+    recognition.lang = 'en-US';
+    recognitionRef.current = recognition;
+    finalTranscriptRef.current = '';
+    setLiveTranscript('');
+
+    recognition.onresult = (event: any) => {
+      let interim = '';
+      let final = '';
+      for (let i = 0; i < event.results.length; i++) {
+        const result = event.results[i];
+        if (result.isFinal) {
+          final += result[0].transcript + ' ';
+        } else {
+          interim += result[0].transcript;
+        }
+      }
+      finalTranscriptRef.current = final;
+      setLiveTranscript(final + interim);
+    };
+
+    recognition.onerror = (event: any) => {
+      // "no-speech" and "aborted" are harmless — ignore silently
+      if (event.error === 'no-speech' || event.error === 'aborted') return;
+
+      console.warn('Speech recognition error:', event.error);
+      if (event.error === 'not-allowed') {
+        alert('Microphone access was denied. Please allow microphone access in your browser settings.');
+      }
+      setIsRecording(false);
+      setLiveTranscript('');
+    };
+
+    recognition.onend = () => {
+      // If still supposed to be recording, restart (browser sometimes stops)
+      if (recognitionRef.current && isRecording) {
+        try { recognitionRef.current.start(); } catch (e) { /* ignore */ }
+      }
+    };
+
+    try {
+      recognition.start();
+      setIsRecording(true);
+    } catch (error) {
+      console.error('Failed to start speech recognition:', error);
+      alert('Could not start voice recognition. Please try again.');
     }
   };
 
@@ -278,7 +384,7 @@ export default function CheckerPage() {
   return (
     <div className="flex flex-col gap-8 pb-16">
       {/* ── Top Navbar ─────────────────────────────────────────────────── */}
-      <div className="flex flex-col sm:flex-row items-center justify-between bg-white rounded-2xl p-4 shadow-sm border border-slate-100 gap-4">
+      <div className="flex flex-col sm:flex-row items-center justify-between bg-white/80 backdrop-blur-sm rounded-[2rem] p-5 shadow-sm shadow-teal-900/[0.03] border border-slate-100/60 gap-4">
         <div className="flex items-center gap-4">
           <input 
             type="file" 
@@ -290,11 +396,31 @@ export default function CheckerPage() {
           />
           <button 
             onClick={() => fileInputRef.current?.click()}
-            disabled={scanning}
-            className="flex items-center gap-2 px-4 py-2 bg-teal-50 text-teal-700 hover:bg-teal-100 rounded-xl font-medium transition-colors"
+            disabled={scanning || isRecording || isProcessingAudio}
+            className="flex items-center gap-2 px-5 py-2.5 bg-[var(--color-brand-soft-teal)] text-[var(--color-brand-teal-dark)] hover:bg-teal-100 rounded-full font-semibold transition-all duration-300 ease-out disabled:opacity-50 hover:-translate-y-0.5 hover:shadow-sm text-sm tracking-tight"
           >
             <Camera className="w-5 h-5" />
             {scanning ? t('readingPrescription') : t('uploadPrescription')}
+          </button>
+          
+          <button
+            onClick={toggleRecording}
+            disabled={scanning || isProcessingAudio}
+            className={clsx(
+              "flex items-center gap-2 px-5 py-2.5 rounded-full font-semibold transition-all duration-300 ease-out disabled:opacity-50 text-sm tracking-tight",
+              isRecording 
+                ? "bg-rose-100 text-rose-700 animate-pulse" 
+                : "bg-[var(--color-brand-soft-teal)] text-[var(--color-brand-teal-dark)] hover:bg-teal-100 hover:-translate-y-0.5 hover:shadow-sm"
+            )}
+          >
+            {isProcessingAudio ? (
+              <div className="w-5 h-5 border-2 border-teal-700/30 border-t-teal-700 rounded-full animate-spin" />
+            ) : isRecording ? (
+              <MicOff className="w-5 h-5" />
+            ) : (
+              <Mic className="w-5 h-5" />
+            )}
+            {isProcessingAudio ? 'Processing Voice...' : isRecording ? 'Stop Recording' : 'Dictate Medications'}
           </button>
         </div>
         <div className="flex items-center gap-3">
@@ -302,6 +428,21 @@ export default function CheckerPage() {
           <LanguageSelector lang={lang} setLang={setLang} />
         </div>
       </div>
+
+      {/* ── Live Transcript Banner ────────────────────────────────────── */}
+      {(isRecording || liveTranscript) && (
+        <div className="bg-gradient-to-r from-teal-50 to-emerald-50 rounded-2xl p-4 shadow-sm border border-teal-100 animate-[fadeUp_0.3s_ease-out_forwards]">
+          <div className="flex items-center gap-3 mb-2">
+            <div className={clsx("w-3 h-3 rounded-full", isRecording ? "bg-rose-500 animate-pulse" : "bg-teal-500")} />
+            <span className="text-sm font-bold text-teal-800 uppercase tracking-wider">
+              {isRecording ? 'Listening...' : 'Transcript Ready'}
+            </span>
+          </div>
+          <p className="text-slate-700 text-sm leading-relaxed italic min-h-[1.5em]">
+            {liveTranscript || 'Start speaking your medications...'}
+          </p>
+        </div>
+      )}
 
       {/* ── Top Column (Inputs) ─────────────────────────────────────────────────── */}
       <div className="flex-1 space-y-6">
@@ -311,7 +452,7 @@ export default function CheckerPage() {
         </div>
 
         {/* Medication inputs */}
-        <div className="bg-white rounded-3xl p-6 shadow-sm border border-slate-100 hover-lift">
+        <div className="bg-white/90 backdrop-blur-sm rounded-[2rem] p-7 shadow-sm shadow-teal-900/[0.03] border border-slate-100/60 transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-md hover:shadow-teal-900/[0.06]">
           <div className="flex items-center gap-3 mb-6 pb-4 border-b border-slate-100">
             <div className="w-10 h-10 rounded-xl bg-orange-50 flex items-center justify-center text-orange-500">
               <Pill className="w-5 h-5" />
@@ -382,10 +523,10 @@ export default function CheckerPage() {
           onClick={analyzeCascade}
           disabled={analyzing}
           className={clsx(
-            'w-full py-5 rounded-2xl text-white font-bold text-xl transition-all shadow-xl hover-lift flex items-center justify-center gap-3',
+            'w-full py-5 rounded-full text-white font-bold text-xl transition-all duration-300 ease-out shadow-xl flex items-center justify-center gap-3',
             analyzing
-              ? 'bg-teal-700 cursor-wait shadow-teal-900/30'
-              : 'bg-[var(--color-brand-teal)] hover:bg-[var(--color-brand-teal-dark)] shadow-[var(--color-brand-teal)]/30',
+              ? 'bg-teal-700 cursor-wait shadow-teal-900/20'
+              : 'bg-gradient-to-r from-[var(--color-brand-teal)] to-[var(--color-brand-teal-dark)] hover:shadow-2xl hover:shadow-teal-900/25 hover:-translate-y-1',
           )}
         >
           {analyzing ? (
@@ -402,7 +543,7 @@ export default function CheckerPage() {
       {/* ── Right Column ─────────────────────────────────────────────────── */}
       <div className="flex-1 min-h-[600px] flex">
         {!results ? (
-          <div className="w-full h-full bg-white rounded-[2rem] border-2 border-dashed border-slate-200 flex flex-col items-center justify-center p-8 text-center relative overflow-hidden">
+          <div className="w-full h-full bg-white/80 backdrop-blur-sm rounded-[2.5rem] border-2 border-dashed border-slate-200/60 flex flex-col items-center justify-center p-8 text-center relative overflow-hidden">
             <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-50">
               <div className="w-[300px] h-[300px] bg-slate-100 rounded-full blur-3xl animate-float" style={{ animationDuration: '8s' }} />
             </div>
@@ -429,7 +570,7 @@ export default function CheckerPage() {
             </div>
           </div>
         ) : (
-          <div className="w-full h-full bg-white rounded-[2rem] shadow-xl shadow-teal-900/5 border border-slate-100 p-8 flex flex-col animate-[fadeUp_0.6s_ease-out_forwards]">
+          <div className="w-full h-full bg-white/90 backdrop-blur-sm rounded-[2.5rem] shadow-xl shadow-teal-900/[0.04] border border-slate-100/60 p-8 flex flex-col" style={{ opacity: 0, animation: 'fadeUp 0.6s cubic-bezier(0.16,1,0.3,1) 0.1s forwards' }}>
             <div className="flex items-center justify-between border-b border-slate-100 pb-6 mb-6">
               <h3 className="text-2xl font-serif text-slate-800">Cascade Analysis Report</h3>
               <div className="flex gap-2">
@@ -553,7 +694,7 @@ export default function CheckerPage() {
             <div className="pt-6 border-t border-slate-100 text-center mt-auto">
               <button
                 onClick={downloadPDF}
-                className="bg-[var(--color-brand-teal)] text-white px-6 py-3 rounded-xl font-bold transition hover:bg-[var(--color-brand-teal-dark)] shadow-lg shadow-teal-500/20 hover-lift inline-flex items-center gap-2"
+                className="bg-gradient-to-r from-[var(--color-brand-teal)] to-[var(--color-brand-teal-dark)] text-white px-7 py-3.5 rounded-full font-bold transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-xl hover:shadow-teal-900/20 shadow-lg shadow-teal-500/15 inline-flex items-center gap-2.5 tracking-tight"
               >
                 <Download className="w-5 h-5" /> Download Full PDF Report
               </button>

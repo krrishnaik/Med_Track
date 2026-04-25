@@ -1,10 +1,11 @@
 "use client";
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useMemo } from 'react';
 import Link from 'next/link';
 import {
   Clipboard, ShieldAlert, CheckCircle, Pill, ArrowRight,
   Stethoscope, Clock, Download, AlertTriangle, ShieldCheck,
+  Sparkles, Activity, History,
 } from 'lucide-react';
 import { auth } from '@/lib/firebase';
 import { onAuthStateChanged } from 'firebase/auth';
@@ -74,9 +75,56 @@ async function downloadCheckPDF(check: MedCheck) {
   } catch (e) { console.error('PDF error', e); }
 }
 
+// ── WelcomeHeader ──────────────────────────────────────────────────────────
+
+function WelcomeHeader({ displayName, totalChecks }: { displayName: string; totalChecks: number }) {
+  const greeting = useMemo(() => {
+    const h = new Date().getHours();
+    if (h < 12) return 'Good morning';
+    if (h < 17) return 'Good afternoon';
+    return 'Good evening';
+  }, []);
+
+  const today = useMemo(() =>
+    new Intl.DateTimeFormat('en-IN', { weekday: 'long', day: 'numeric', month: 'long' }).format(new Date()),
+  []);
+
+  return (
+    <div className="animate-fade-up flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+      <div>
+        {/* Date line */}
+        <p className="text-xs font-semibold text-slate-400 uppercase tracking-widest mb-2">{today}</p>
+        {/* Greeting */}
+        <h1 className="text-3xl font-serif text-slate-800 tracking-tight leading-tight">
+          {greeting},{' '}
+          <span className="text-[var(--color-brand-teal-dark)] capitalize">{displayName.split(' ')[0]}</span>
+          <span className="text-slate-300">.</span>
+        </h1>
+        <p className="text-sm text-slate-400 mt-1.5 font-medium leading-relaxed">
+          Your medication safety dashboard is ready.
+        </p>
+      </div>
+
+      {/* Status pill cluster */}
+      <div className="flex items-center gap-2 shrink-0">
+        <div className="flex items-center gap-1.5 px-3.5 py-2 bg-emerald-50 border border-emerald-100 rounded-full text-xs font-semibold text-emerald-700">
+          <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse inline-block" />
+          System Online
+        </div>
+        {totalChecks > 0 && (
+          <div className="px-3.5 py-2 bg-white/80 border border-slate-200/60 rounded-full text-xs font-semibold text-slate-600">
+            {totalChecks} check{totalChecks !== 1 ? 's' : ''} run
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
 // ── Main page ──────────────────────────────────────────────────────────────
 
 export default function DashboardHome() {
+  // ── ALL existing state & logic (UNTOUCHED) ─────────────────────────────
   const [checks, setChecks] = useState<MedCheck[]>([]);
   const [stats,  setStats]  = useState({ total: 0, alerts: 0, safe: 0, drugs: 0 });
   const [mounted, setMounted] = useState(false);
@@ -105,155 +153,266 @@ export default function DashboardHome() {
   }, [refresh]);
 
   const latestCheck = checks[0] ?? null;
+  // ── End existing logic ────────────────────────────────────────────────
 
   if (!mounted) return (
-    <div className="space-y-8 pb-12 animate-pulse">
-      <div className="h-12 w-64 bg-slate-100 rounded-xl" />
+    <div className="space-y-8 pb-12">
+      {/* Premium skeleton loader */}
+      <div className="flex flex-col gap-3 animate-pulse">
+        <div className="h-8 w-72 bg-slate-100/80 rounded-[1.5rem]" />
+        <div className="h-5 w-96 bg-slate-100/60 rounded-full" />
+      </div>
+      <div className="h-52 bg-slate-100/60 rounded-[2rem]" />
+      <div className="grid grid-cols-4 gap-5">
+        {[1,2,3,4].map(i => <div key={i} className="h-28 bg-slate-100/50 rounded-[1.5rem]" />)}
+      </div>
     </div>
   );
 
-  return (
-    <div className="space-y-8 pb-12">
-      {/* Header */}
-      <div>
-        <h1 className="text-4xl font-serif text-slate-800 mb-2 capitalize">
-          Welcome back, {displayName} <span className="inline-block animate-float" style={{ animationDuration: '3s' }}>👋</span>
-        </h1>
-        <p className="text-slate-500 text-lg">Let&apos;s check if your medications are working safely together.</p>
-      </div>
+  const statCards = [
+    { label: 'Total Checks',   value: stats.total,  icon: Clipboard,   gradient: 'from-slate-50 to-white', iconBg: 'bg-slate-100',    iconColor: 'text-slate-600'  },
+    { label: 'Alerts Found',   value: stats.alerts, icon: ShieldAlert, gradient: 'from-rose-50/60 to-white', iconBg: 'bg-rose-100',     iconColor: 'text-rose-600'   },
+    { label: 'Safe Checks',    value: stats.safe,   icon: CheckCircle, gradient: 'from-emerald-50/60 to-white', iconBg: 'bg-emerald-100',  iconColor: 'text-emerald-600'},
+    { label: 'Drugs Analyzed', value: stats.drugs,  icon: Pill,        gradient: 'from-[var(--color-brand-lavender)]/60 to-white', iconBg: 'bg-indigo-100',   iconColor: 'text-indigo-600'},
+  ];
 
-      {/* Banner */}
-      <div className="w-full bg-[var(--color-brand-teal)] rounded-3xl p-8 text-white relative overflow-hidden shadow-xl shadow-teal-900/20 hover-lift">
-        <div className="absolute top-[-50px] right-[-50px] w-64 h-64 bg-teal-400/20 rounded-full blur-3xl animate-float" />
-        <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
-          <div className="max-w-xl">
-            <h2 className="text-2xl font-serif mb-2">Check your medications now.</h2>
-            <p className="text-teal-100 text-lg">Get a full AI safety report in under 30 seconds. Identify hidden cascades before they cause harm.</p>
+  return (
+    <div className="space-y-7 pb-12">
+
+      {/* Header — minimal & time-aware */}
+      <WelcomeHeader displayName={displayName} totalChecks={stats.total} />
+
+      {/* ═══════════════════════════════════════════════════════════════════
+          Hero Banner — stagger-1
+          ═══════════════════════════════════════════════════════════════════ */}
+      <div style={{ opacity: 0, animation: 'fadeUp 0.6s cubic-bezier(0.16,1,0.3,1) 0.05s forwards' }}>
+        <div className="
+          w-full rounded-[2rem] p-8 relative overflow-hidden
+          bg-gradient-to-br from-[var(--color-brand-teal)] via-[var(--color-brand-teal-dark)] to-[#153D42]
+          shadow-xl shadow-teal-900/15
+          transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-2xl hover:shadow-teal-900/20
+        ">
+          {/* Decorative orbs */}
+          <div className="absolute top-[-60px] right-[-40px] w-72 h-72 bg-teal-300/15 rounded-full blur-3xl animate-float pointer-events-none" />
+          <div className="absolute bottom-[-40px] left-[-30px] w-48 h-48 bg-sky-400/10 rounded-full blur-3xl animate-breathe pointer-events-none" />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-teal-400/5 rounded-full blur-[80px] animate-shimmer pointer-events-none" />
+
+          <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
+            <div className="max-w-xl">
+              <div className="inline-flex items-center gap-2 px-3 py-1 bg-white/10 backdrop-blur-sm rounded-full text-teal-100 text-xs font-semibold tracking-widest uppercase mb-4 border border-white/10">
+                <Sparkles className="w-3.5 h-3.5" />
+                AI-Powered Analysis
+              </div>
+              <h2 className="text-2xl md:text-3xl font-serif mb-2.5 text-white leading-tight tracking-tight">
+                Check your medications now.
+              </h2>
+              <p className="text-teal-100/80 text-base leading-relaxed">
+                Get a full AI safety report in under 30 seconds. Identify hidden cascades before they cause harm.
+              </p>
+            </div>
+            <Link
+              href="/dashboard/checker"
+              className="
+                px-8 py-4 bg-white text-[var(--color-brand-teal-dark)] rounded-full font-bold 
+                hover:bg-teal-50 transition-all duration-300 ease-out
+                shadow-lg shadow-black/10 
+                hover:-translate-y-1 hover:shadow-xl hover:shadow-black/15
+                flex items-center justify-center gap-2.5 whitespace-nowrap
+                text-base tracking-tight
+              "
+            >
+              Analyze My Medications <ArrowRight className="w-5 h-5" />
+            </Link>
           </div>
-          <Link
-            href="/dashboard/checker"
-            className="px-8 py-4 bg-white text-[var(--color-brand-teal-dark)] rounded-xl font-bold hover:bg-teal-50 transition-colors shadow-lg shadow-black/10 hover-lift flex items-center justify-center gap-2 whitespace-nowrap"
-          >
-            Analyze My Medications <ArrowRight className="w-5 h-5" />
-          </Link>
         </div>
       </div>
 
-      {/* Live Stats Grid */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-        {[
-          { label: 'Total Checks',   value: stats.total,  icon: Clipboard,   color: 'text-slate-600',   bg: 'bg-slate-100'  },
-          { label: 'Alerts Found',   value: stats.alerts, icon: ShieldAlert, color: 'text-rose-600',    bg: 'bg-rose-100'   },
-          { label: 'Safe Checks',    value: stats.safe,   icon: CheckCircle, color: 'text-emerald-600', bg: 'bg-emerald-100'},
-          { label: 'Drugs Analyzed', value: stats.drugs,  icon: Pill,        color: 'text-indigo-600',  bg: 'bg-indigo-100' },
-        ].map((stat, i) => (
-          <div key={i} className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 hover-lift flex items-center gap-4">
-            <div className={`w-12 h-12 rounded-xl flex items-center justify-center shrink-0 ${stat.bg} ${stat.color}`}>
+      {/* ═══════════════════════════════════════════════════════════════════
+          Stats Bento Grid — staggered entrance
+          ═══════════════════════════════════════════════════════════════════ */}
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
+        {statCards.map((stat, i) => (
+          <div
+            key={i}
+            className={`
+              bg-gradient-to-br ${stat.gradient}
+              p-5 rounded-[1.5rem] 
+              shadow-sm shadow-teal-900/[0.03] 
+              border border-slate-100/80
+              transition-all duration-300 ease-out
+              hover:-translate-y-1 hover:shadow-md hover:shadow-teal-900/[0.06]
+              flex items-center gap-4 group
+            `}
+            style={{ opacity: 0, animation: `fadeUp 0.6s cubic-bezier(0.16,1,0.3,1) ${0.1 + i * 0.07}s forwards` }}
+          >
+            <div className={`
+              w-12 h-12 rounded-[1rem] flex items-center justify-center shrink-0 
+              ${stat.iconBg} ${stat.iconColor}
+              transition-all duration-300 ease-out
+              group-hover:scale-110 group-hover:shadow-sm
+            `}>
               <stat.icon className="w-6 h-6" />
             </div>
             <div>
-              <div className="text-3xl font-serif text-slate-800">{stat.value}</div>
-              <div className="text-sm font-medium text-slate-500">{stat.label}</div>
+              <div className="text-3xl font-serif text-slate-800 tracking-tight leading-none">
+                {stat.value}
+              </div>
+              <div className="text-xs font-semibold text-slate-500 mt-1 tracking-tight">
+                {stat.label}
+              </div>
             </div>
           </div>
         ))}
       </div>
 
-      {/* Bottom split */}
-      <div className="grid lg:grid-cols-2 gap-8">
+      {/* ═══════════════════════════════════════════════════════════════════
+          Bottom Split — Past Checks + Safety Status
+          ═══════════════════════════════════════════════════════════════════ */}
+      <div className="grid lg:grid-cols-2 gap-6">
 
-        {/* ── Past Checks (live) ─────────────────────────────────── */}
-        <div className="bg-white p-8 rounded-3xl shadow-sm border border-slate-100 hover-lift">
-          <div className="flex items-center justify-between mb-6">
-            <h3 className="text-xl font-serif text-slate-800">Past Medication Checks</h3>
-            <Link href="/dashboard/history" className="text-sm font-medium text-[var(--color-brand-teal)] hover:underline flex items-center gap-1">
-              View All <ArrowRight className="w-3.5 h-3.5" />
-            </Link>
-          </div>
-
-          {checks.length === 0 ? (
-            <div className="flex flex-col items-center justify-center py-12 text-center border-2 border-dashed border-slate-200 rounded-2xl">
-              <div className="w-16 h-16 bg-slate-50 rounded-full flex items-center justify-center mb-4">
-                <Clipboard className="w-8 h-8 text-slate-400" />
+        {/* ── Past Checks Card ──────────────────────────────────────────── */}
+        <div style={{ opacity: 0, animation: 'fadeUp 0.6s cubic-bezier(0.16,1,0.3,1) 0.4s forwards' }}>
+          <div className="
+            bg-white/90 backdrop-blur-sm p-7 rounded-[2rem] 
+            shadow-sm shadow-teal-900/[0.03] 
+            border border-slate-100/70
+            transition-all duration-300 ease-out
+            hover:-translate-y-1 hover:shadow-md hover:shadow-teal-900/[0.06]
+          ">
+            <div className="flex items-center justify-between mb-6">
+              <div className="flex items-center gap-3">
+                <div className="w-9 h-9 rounded-xl bg-[var(--color-brand-soft-teal)] flex items-center justify-center">
+                  <History className="w-[18px] h-[18px] text-[var(--color-brand-teal)]" />
+                </div>
+                <h3 className="text-lg font-serif text-slate-800 tracking-tight">Past Medication Checks</h3>
               </div>
-              <p className="text-slate-600 font-medium mb-1">No checks yet</p>
-              <p className="text-sm text-slate-400 max-w-xs">Your medication check history will appear here once you run an analysis.</p>
+              <Link href="/dashboard/history" className="text-xs font-semibold text-[var(--color-brand-teal)] hover:underline flex items-center gap-1 transition-colors hover:text-[var(--color-brand-teal-dark)]">
+                View All <ArrowRight className="w-3 h-3" />
+              </Link>
             </div>
-          ) : (
-            <div className="space-y-3">
-              {checks.map((check) => {
-                const badge = riskBadge(check.risk_level);
-                const BadgeIcon = badge.icon;
-                return (
-                  <div key={check.id} className="flex items-center gap-3 p-3.5 rounded-xl border border-slate-100 hover:bg-slate-50 transition-colors group">
-                    <div className={`shrink-0 w-8 h-8 rounded-full flex items-center justify-center ${badge.cls}`}>
-                      <BadgeIcon className="w-4 h-4" />
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <p className="text-sm font-medium text-slate-800 truncate">
-                        {check.medications.map((m) => m.name).join(' · ')}
-                      </p>
-                      <p className="text-xs text-slate-400 flex items-center gap-1 mt-0.5">
-                        <Clock className="w-3 h-3" />{formatDate(check.timestamp)}
-                      </p>
-                    </div>
-                    <button
-                      onClick={() => downloadCheckPDF(check)}
-                      title="Download PDF"
-                      className="p-1.5 text-slate-300 group-hover:text-[var(--color-brand-teal)] hover:bg-teal-50 rounded-lg transition-colors opacity-0 group-hover:opacity-100"
-                    >
-                      <Download className="w-4 h-4" />
-                    </button>
-                  </div>
-                );
-              })}
-            </div>
-          )}
-        </div>
 
-        {/* ── Safety Status (live) ───────────────────────────────── */}
-        <div className="bg-[#1A464C] p-8 rounded-3xl shadow-xl shadow-teal-900/10 text-white relative overflow-hidden hover-lift flex flex-col justify-between min-h-[300px]">
-          <div className="absolute top-0 right-0 w-full h-full bg-[var(--color-brand-teal)] rounded-full blur-[100px] opacity-20 animate-float" />
-          <div className="relative z-10">
-            {latestCheck ? (
-              <>
-                <div className={`inline-flex items-center gap-2 px-3 py-1 rounded-full text-sm font-bold tracking-wider mb-6 ${
-                  latestCheck.risk_level === 'high'     ? 'bg-rose-400/20 text-rose-200'     :
-                  latestCheck.risk_level === 'moderate' ? 'bg-amber-400/20 text-amber-200'   :
-                                                          'bg-teal-400/20 text-teal-200'
-                }`}>
-                  {latestCheck.risk_level === 'high'     ? <ShieldAlert className="w-4 h-4" /> :
-                   latestCheck.risk_level === 'moderate' ? <AlertTriangle className="w-4 h-4" /> :
-                                                           <CheckCircle className="w-4 h-4" />}
-                  {riskBadge(latestCheck.risk_level).label.toUpperCase()}
+            {checks.length === 0 ? (
+              <div className="flex flex-col items-center justify-center py-14 text-center border-2 border-dashed border-slate-200/60 rounded-[1.5rem] bg-slate-50/30">
+                <div className="w-16 h-16 bg-slate-100/60 rounded-full flex items-center justify-center mb-4">
+                  <Clipboard className="w-8 h-8 text-slate-300" />
                 </div>
-                <h3 className="text-2xl font-serif mb-3 leading-tight">
-                  {latestCheck.medications.map((m) => m.name).join(', ')}
-                </h3>
-                <p className="text-teal-100/80 mb-6 max-w-sm line-clamp-3">{latestCheck.short_analysis}</p>
-                <p className="text-xs text-teal-300/60 flex items-center gap-1">
-                  <Clock className="w-3 h-3" /> Last check: {formatDate(latestCheck.timestamp)}
+                <p className="text-slate-600 font-semibold mb-1 tracking-tight">No checks yet</p>
+                <p className="text-sm text-slate-400 max-w-xs leading-relaxed">
+                  Your medication check history will appear here once you run an analysis.
                 </p>
-              </>
+              </div>
             ) : (
-              <>
-                <div className="inline-flex items-center gap-2 px-3 py-1 bg-teal-400/20 rounded-full text-teal-200 text-sm font-bold tracking-wider mb-6">
-                  <CheckCircle className="w-4 h-4" /> ALL CLEAR
-                </div>
-                <h3 className="text-3xl font-serif mb-4 leading-tight">No checks run yet.</h3>
-                <p className="text-teal-100/80 mb-8 max-w-sm text-lg">
-                  Run your first medication check to see your personalized safety status and risk profile here.
-                </p>
-              </>
+              <div className="space-y-2.5">
+                {checks.map((check) => {
+                  const badge = riskBadge(check.risk_level);
+                  const BadgeIcon = badge.icon;
+                  return (
+                    <div
+                      key={check.id}
+                      className="
+                        flex items-center gap-3 p-3.5 rounded-[1.2rem] 
+                        border border-slate-100/70 bg-white/60
+                        hover:bg-[var(--color-brand-soft-teal)]/30 
+                        transition-all duration-300 ease-out group
+                        hover:-translate-y-0.5 hover:shadow-sm hover:shadow-teal-900/[0.03]
+                      "
+                    >
+                      <div className={`shrink-0 w-9 h-9 rounded-[0.8rem] flex items-center justify-center ${badge.cls} transition-transform duration-300 group-hover:scale-110`}>
+                        <BadgeIcon className="w-4 h-4" />
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <p className="text-sm font-semibold text-slate-800 truncate tracking-tight">
+                          {check.medications.map((m) => m.name).join(' · ')}
+                        </p>
+                        <p className="text-xs text-slate-400 flex items-center gap-1 mt-0.5">
+                          <Clock className="w-3 h-3" />{formatDate(check.timestamp)}
+                        </p>
+                      </div>
+                      <button
+                        onClick={() => downloadCheckPDF(check)}
+                        title="Download PDF"
+                        className="p-2 text-slate-300 group-hover:text-[var(--color-brand-teal)] hover:bg-[var(--color-brand-soft-teal)] rounded-xl transition-all duration-200 opacity-0 group-hover:opacity-100"
+                      >
+                        <Download className="w-4 h-4" />
+                      </button>
+                    </div>
+                  );
+                })}
+              </div>
             )}
           </div>
+        </div>
 
-          <Link
-            href="/dashboard/checker"
-            className="w-full sm:w-auto self-start px-6 py-3 bg-white text-[var(--color-brand-teal-dark)] rounded-xl font-bold hover:bg-teal-50 transition-colors flex items-center gap-2 hover-lift relative z-10"
-          >
-            {latestCheck ? 'Run Another Check' : 'Run First Check'} <Stethoscope className="w-5 h-5" />
-          </Link>
+        {/* ── Safety Status Card ─────────────────────────────────────────── */}
+        <div className="opacity-0 animate-stagger-6">
+          <div className="
+            rounded-[2rem] p-7 
+            bg-gradient-to-br from-[#1A464C] via-[#1D4F56] to-[#153D42]
+            shadow-xl shadow-teal-900/10 
+            text-white relative overflow-hidden 
+            transition-all duration-300 ease-out
+            hover:-translate-y-1 hover:shadow-2xl hover:shadow-teal-900/15
+            flex flex-col justify-between min-h-[320px]
+          ">
+            {/* Decorative glow */}
+            <div className="absolute top-0 right-0 w-64 h-64 bg-[var(--color-brand-teal)]/15 rounded-full blur-[80px] animate-breathe pointer-events-none" />
+            <div className="absolute bottom-0 left-0 w-48 h-48 bg-sky-500/5 rounded-full blur-[60px] animate-shimmer pointer-events-none" />
+
+            <div className="relative z-10">
+              {latestCheck ? (
+                <>
+                  <div className={`
+                    inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-bold tracking-widest mb-6
+                    backdrop-blur-sm border border-white/10
+                    ${
+                      latestCheck.risk_level === 'high'     ? 'bg-rose-400/15 text-rose-200'     :
+                      latestCheck.risk_level === 'moderate' ? 'bg-amber-400/15 text-amber-200'   :
+                                                                'bg-teal-400/15 text-teal-200'
+                    }
+                  `}>
+                    {latestCheck.risk_level === 'high'     ? <ShieldAlert className="w-3.5 h-3.5" /> :
+                     latestCheck.risk_level === 'moderate' ? <AlertTriangle className="w-3.5 h-3.5" /> :
+                                                              <CheckCircle className="w-3.5 h-3.5" />}
+                    {riskBadge(latestCheck.risk_level).label.toUpperCase()}
+                  </div>
+                  <h3 className="text-2xl font-serif mb-3 leading-tight tracking-tight">
+                    {latestCheck.medications.map((m) => m.name).join(', ')}
+                  </h3>
+                  <p className="text-teal-100/70 mb-6 max-w-sm line-clamp-3 text-sm leading-relaxed">
+                    {latestCheck.short_analysis}
+                  </p>
+                  <p className="text-xs text-teal-300/50 flex items-center gap-1.5">
+                    <Clock className="w-3 h-3" /> Last check: {formatDate(latestCheck.timestamp)}
+                  </p>
+                </>
+              ) : (
+                <>
+                  <div className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-teal-400/15 backdrop-blur-sm rounded-full text-teal-200 text-xs font-bold tracking-widest mb-6 border border-white/10">
+                    <Activity className="w-3.5 h-3.5" /> AWAITING FIRST CHECK
+                  </div>
+                  <h3 className="text-3xl font-serif mb-4 leading-tight tracking-tight">No checks run yet.</h3>
+                  <p className="text-teal-100/70 mb-8 max-w-sm text-base leading-relaxed">
+                    Run your first medication check to see your personalized safety status and risk profile here.
+                  </p>
+                </>
+              )}
+            </div>
+
+            <Link
+              href="/dashboard/checker"
+              className="
+                w-full sm:w-auto self-start px-7 py-3.5 
+                bg-white text-[var(--color-brand-teal-dark)] rounded-full font-bold 
+                hover:bg-teal-50 transition-all duration-300 ease-out
+                shadow-lg shadow-black/10
+                hover:-translate-y-1 hover:shadow-xl
+                flex items-center gap-2.5 
+                relative z-10 tracking-tight
+              "
+            >
+              {latestCheck ? 'Run Another Check' : 'Run First Check'} <Stethoscope className="w-5 h-5" />
+            </Link>
+          </div>
         </div>
 
       </div>

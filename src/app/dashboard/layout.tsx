@@ -10,8 +10,8 @@ export default function DashboardLayout({
     <div className="min-h-screen bg-[var(--color-brand-cream)] flex">
       <Sidebar />
       <TopBar />
-      <main className="flex-1 pl-64 pt-20">
-        <div className="p-8 max-w-6xl mx-auto animate-[fadeUp_0.8s_ease-out_forwards]">
+      <main className="flex-1 pl-[280px] pt-[72px]">
+        <div className="p-8 max-w-[1200px] mx-auto animate-fade-up">
           {children}
         </div>
       </main>

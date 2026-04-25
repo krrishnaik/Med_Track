@@ -116,13 +116,15 @@ def run_agent_analysis(medications, context, language="English"):
             
         parsed_content = json.loads(content)
         
+        disclaimer = "\n\n*Disclaimer: MedTrack provides AI-driven clinical insights to empower your health journey, best used in collaboration with your doctor's professional expertise.*"
+        
         return {
             "status": "success",
             "severity": calc_severity,  # <--- Replaced hardcoded "Analyzed" with the real calculated severity
             "analyzed_count": len(medications),
             "short_analysis": parsed_content.get("short_analysis", "No short analysis provided."),
             "medium_analysis": parsed_content.get("medium_analysis", "No medium analysis provided."),
-            "detailed_report": parsed_content.get("detailed_report", "No detailed report provided."),
+            "detailed_report": parsed_content.get("detailed_report", "No detailed report provided.") + disclaimer,
             "chart_data": parsed_content.get("chart_data", {"safety_score": 50, "risk_score": 50, "severity_bars": []})
         }
     except Exception as e:
@@ -141,6 +143,9 @@ def run_agent_analysis(medications, context, language="English"):
     med_txt = f"The interaction between {' and '.join(medications)} triggers {len(results)} clinical flags detected in the DDI/DrugBank databases."
     
     det_txt = f"# Detailed Interaction Report\\n\\n## Medications Analyzed\\n{', '.join(medications)}\\n\\n## Detected Interaction Database Findings\\n{details if details else 'No interactions found in the database.'}\\n\\n## Clinical Management\\n- Check specific enzyme overlaps.\\n- Consider safer alternatives if symptoms arise.\\n\\n## Overall Assessment\\n**SEVERITY: {'HIGH' if major_count > 0 else 'MODERATE' if results else 'LOW'}**"
+
+    disclaimer = "\n\n*Disclaimer: This response is AI-generated. Please consult a professional doctor for medical advice.*"
+    det_txt += disclaimer
 
     return {
         "status": "success",
@@ -217,6 +222,62 @@ def scan_prescription():
     except Exception as e:
         print("Vision API Error:", e)
         return jsonify({"error": "Failed to parse prescription image"}), 500
+
+@app.route('/api/extract-medications', methods=['POST'])
+def extract_medications():
+    data = request.json
+    if not data or 'transcript' not in data:
+        return jsonify({"error": "No transcript provided"}), 400
+
+    transcript = data['transcript'].strip()
+    if not transcript:
+        return jsonify({"error": "Empty transcript"}), 400
+
+    # Use Groq to extract medications from the transcript
+    GROQ_API_KEY = "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"
+    groq_headers = {
+        "Authorization": f"Bearer {GROQ_API_KEY}",
+        "Content-Type": "application/json"
+    }
+
+    payload = {
+        "model": "llama-3.3-70b-versatile",
+        "messages": [
+            {
+                "role": "user",
+                "content": f"Extract all medications and their dosages from the following transcript. Also estimate the most likely prescribing specialist (e.g. 'Cardiologist', 'Endocrinologist', 'Primary Care'). Output strictly as a JSON array of objects. Format: [{{\"name\": \"Medication Name\", \"dose\": \"Dosage\", \"specialist\": \"Specialist Name\"}}]. If a dosage is not mentioned, leave dose as an empty string. Only output the JSON array, no other text.\n\nTranscript: {transcript}"
+            }
+        ],
+        "temperature": 0.1,
+        "response_format": {"type": "json_object"}
+    }
+
+    try:
+        response = requests.post("https://api.groq.com/openai/v1/chat/completions", headers=groq_headers, json=payload)
+        response.raise_for_status()
+        resp_data = response.json()
+        content = resp_data["choices"][0]["message"]["content"].strip()
+        
+        # Clean markdown
+        if content.startswith("```json"): content = content[7:]
+        elif content.startswith("```"): content = content[3:]
+        if content.endswith("```"): content = content[:-3]
+        content = content.strip()
+        
+        parsed = json.loads(content)
+        
+        # Handle if LLM wraps in an object like {"medications": [...]}
+        if isinstance(parsed, dict):
+            parsed_drugs = parsed.get("medications", parsed.get("drugs", []))
+        elif isinstance(parsed, list):
+            parsed_drugs = parsed
+        else:
+            parsed_drugs = []
+            
+        return jsonify({"status": "success", "medications": parsed_drugs, "transcript": transcript})
+    except Exception as e:
+        print("Groq Extraction Error:", e)
+        return jsonify({"error": "Failed to extract medications from transcript"}), 500
 
 if __name__ == '__main__':
     app.run(debug=False, port=5000, use_reloader=False)

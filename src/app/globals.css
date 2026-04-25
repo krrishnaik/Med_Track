@@ -1,51 +1,163 @@
 @import "tailwindcss";
 
+/* ═══════════════════════════════════════════════════════════════════════════
+   Bio-Soft Design System — "Clinical Minimalism"
+   ═══════════════════════════════════════════════════════════════════════════ */
+
 @theme {
-  --color-brand-cream: #F6F4ED;
+  /* ── Brand Palette ─────────────────────────────────────────────────────── */
+  --color-brand-cream: #FBF9F4;
   --color-brand-teal: #2B6A73;
   --color-brand-teal-dark: #1A464C;
   --color-brand-teal-light: #3D8893;
+  --color-brand-soft-teal: #E8F4F8;
+  --color-brand-lavender: #F3EEF9;
+  --color-brand-warm-white: #FEFDFB;
+
+  /* ── Animations ────────────────────────────────────────────────────────── */
   --animate-float: float 6s ease-in-out infinite;
-  --animate-fade-up: fadeUp 0.8s ease-out forwards;
+  --animate-fade-up: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  --animate-fade-in: fadeIn 0.6s ease-out forwards;
+  --animate-logo-entrance: logoEntrance 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  --animate-shimmer: shimmer 2.5s ease-in-out infinite;
+  --animate-breathe: breathe 4s ease-in-out infinite;
+  --animate-stagger-1: fadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.05s forwards;
+  --animate-stagger-2: fadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.1s forwards;
+  --animate-stagger-3: fadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.15s forwards;
+  --animate-stagger-4: fadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards;
+  --animate-stagger-5: fadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.25s forwards;
+  --animate-stagger-6: fadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards;
+  --animate-slide-in-right: slideInRight 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  --animate-scale-in: scaleIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
 }
 
 :root {
-  --background: #F6F4ED;
-  --foreground: #171717;
+  --background: #FBF9F4;
+  --foreground: #1e293b;
 }
+
+/* ── Keyframes ─────────────────────────────────────────────────────────── */
 
 @layer utilities {
   @keyframes float {
-    0%, 100% {
-      transform: translateY(0);
-    }
-    50% {
-      transform: translateY(-15px);
-    }
+    0%, 100% { transform: translateY(0); }
+    50%      { transform: translateY(-15px); }
   }
 
   @keyframes fadeUp {
-    0% {
-      opacity: 0;
-      transform: translateY(20px);
-    }
-    100% {
-      opacity: 1;
-      transform: translateY(0);
-    }
+    0%   { opacity: 0; transform: translateY(24px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeIn {
+    0%   { opacity: 0; }
+    100% { opacity: 1; }
+  }
+
+  @keyframes logoEntrance {
+    0%   { opacity: 0; transform: scale(0.5) rotate(-15deg); }
+    60%  { opacity: 1; transform: scale(1.08) rotate(2deg); }
+    100% { opacity: 1; transform: scale(1) rotate(0deg); }
+  }
+
+  @keyframes shimmer {
+    0%, 100% { opacity: 0.4; }
+    50%      { opacity: 0.8; }
+  }
+
+  @keyframes breathe {
+    0%, 100% { transform: scale(1); opacity: 0.6; }
+    50%      { transform: scale(1.05); opacity: 0.9; }
+  }
+
+  @keyframes slideInRight {
+    0%   { opacity: 0; transform: translateX(20px); }
+    100% { opacity: 1; transform: translateX(0); }
+  }
+
+  @keyframes scaleIn {
+    0%   { opacity: 0; transform: scale(0.9); }
+    100% { opacity: 1; transform: scale(1); }
+  }
+
+  @keyframes pulse-ring {
+    0%   { transform: scale(0.95); opacity: 0.7; }
+    50%  { transform: scale(1);    opacity: 1; }
+    100% { transform: scale(0.95); opacity: 0.7; }
   }
 
   .hover-lift {
-    @apply transition-all duration-300 hover:-translate-y-2 hover:shadow-lg;
+    @apply transition-all duration-300 ease-out;
+  }
+  .hover-lift:hover {
+    transform: translateY(-3px);
+    box-shadow:
+      0 10px 40px -10px rgba(43, 106, 115, 0.12),
+      0 4px 12px -2px rgba(43, 106, 115, 0.06);
+  }
+
+  /* Stagger-fade children — initial hidden state */
+  .stagger-child {
+    opacity: 0;
   }
 }
+
+/* ── Base Styles ─────────────────────────────────────────────────────── */
 
 body {
   background-color: var(--background);
   color: var(--foreground);
-  font-family: var(--font-inter), sans-serif;
+  font-family: var(--font-inter), 'Inter', system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-dm-serif), serif;
+  letter-spacing: -0.02em;
+}
+
+/* ── Custom Scrollbar (Premium feel) ─────────────────────────────────── */
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(43, 106, 115, 0.15);
+  border-radius: 100px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(43, 106, 115, 0.3);
+}
+
+/* ── Selection Color ─────────────────────────────────────────────────── */
+
+::selection {
+  background: rgba(43, 106, 115, 0.15);
+  color: #1A464C;
+}
+
+/* ── Focus States (Accessibility) ────────────────────────────────────── */
+
+*:focus-visible {
+  outline: 2px solid rgba(43, 106, 115, 0.4);
+  outline-offset: 2px;
+  border-radius: 8px;
+}
+
+/* ── Input Styling ───────────────────────────────────────────────────── */
+
+input, select, textarea {
+  transition: all 0.2s ease;
+}
+
+input:focus, select:focus, textarea:focus {
+  box-shadow: 0 0 0 3px rgba(43, 106, 115, 0.08);
 }
