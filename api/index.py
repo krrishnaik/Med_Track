@@ -5,7 +5,7 @@ import requests
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 from dotenv import load_dotenv
-from data_parser import store
+from api.data_parser import store
 
 # (Removed the broken google.generativeai import since you use Groq now!)
 
