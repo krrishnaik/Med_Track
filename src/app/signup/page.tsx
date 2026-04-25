@@ -4,7 +4,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { ArrowRight, Pill } from 'lucide-react';
 import { auth } from '@/lib/firebase';
-import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
+import { createUserWithEmailAndPassword, updateProfile, setPersistence, browserLocalPersistence } from 'firebase/auth';
 import { getFirestore, doc, setDoc } from 'firebase/firestore';
 
 export default function SignupPage() {
@@ -20,6 +20,7 @@ export default function SignupPage() {
     setLoading(true);
 
     try {
+      await setPersistence(auth, browserLocalPersistence);
       // 1. Create the user in Firebase Auth
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;

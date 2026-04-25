@@ -1,7 +1,38 @@
+"use client";
+
+import { useState } from 'react';
 import Link from 'next/link';
 import { ArrowRight, Pill } from 'lucide-react';
+import { auth } from '@/lib/firebase';
+import { signInWithEmailAndPassword, setPersistence, browserLocalPersistence } from 'firebase/auth';
 
 export default function LoginPage() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
+
+  const handleSignIn = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError('');
+    setLoading(true);
+
+    try {
+      await setPersistence(auth, browserLocalPersistence);
+      await signInWithEmailAndPassword(auth, email, password);
+      window.location.href = '/dashboard';
+    } catch (err: any) {
+      console.error("Firebase Sign-In Error:", err);
+      if (err.code === 'auth/invalid-credential' || err.code === 'auth/user-not-found' || err.code === 'auth/wrong-password') {
+        setError('Invalid email or password.');
+      } else {
+        setError(err.message || 'Failed to sign in.');
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-[var(--color-brand-cream)] flex items-center justify-center relative overflow-hidden">
       {/* Background blobs */}
@@ -17,22 +48,50 @@ export default function LoginPage() {
           <p className="text-slate-500">Sign in to securely check your medications.</p>
         </div>
 
-        <form className="space-y-5" autoComplete="off">
+        {error && (
+          <div className="mb-4 p-3 bg-rose-50 border border-rose-200 text-rose-600 rounded-xl text-sm text-center font-medium animate-[fadeUp_0.3s_ease-out_forwards]">
+            {error}
+          </div>
+        )}
+
+        <form onSubmit={handleSignIn} className="space-y-5" autoComplete="off">
           <div>
             <label className="block text-sm font-medium text-slate-700 mb-1">Email Address</label>
-            <input type="email" autoComplete="off" placeholder="you@example.com" className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-[var(--color-brand-teal)]/50 focus:border-[var(--color-brand-teal)] transition-all bg-white/50" />
+            <input 
+              type="email" 
+              required
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              autoComplete="email" 
+              placeholder="you@example.com" 
+              className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-[var(--color-brand-teal)]/50 focus:border-[var(--color-brand-teal)] transition-all bg-white/50" 
+            />
           </div>
           <div>
             <label className="block text-sm font-medium text-slate-700 mb-1">Password</label>
-            <input type="password" autoComplete="new-password" placeholder="••••••••" className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-[var(--color-brand-teal)]/50 focus:border-[var(--color-brand-teal)] transition-all bg-white/50" />
+            <input 
+              type="password" 
+              required
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              autoComplete="current-password" 
+              placeholder="••••••••" 
+              className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-[var(--color-brand-teal)]/50 focus:border-[var(--color-brand-teal)] transition-all bg-white/50" 
+            />
             <div className="text-right mt-2">
                <a href="#" className="text-sm text-[var(--color-brand-teal-light)] hover:text-[var(--color-brand-teal)]">Forgot password?</a>
             </div>
           </div>
           
-          <Link href="/dashboard" className="w-full py-4 rounded-xl bg-[var(--color-brand-teal)] text-white font-medium text-lg hover:bg-[var(--color-brand-teal-dark)] transition-all hover-lift shadow-lg shadow-teal-900/20 flex items-center justify-center gap-2 mt-4">
-            Sign In <ArrowRight className="w-5 h-5" />
-          </Link>
+          <button 
+            type="submit" 
+            disabled={loading}
+            className="w-full py-4 rounded-xl bg-[var(--color-brand-teal)] text-white font-medium text-lg hover:bg-[var(--color-brand-teal-dark)] transition-all hover-lift shadow-lg shadow-teal-900/20 flex items-center justify-center gap-2 mt-4 disabled:opacity-70 disabled:cursor-not-allowed"
+          >
+            {loading ? 'Signing In...' : (
+              <>Sign In <ArrowRight className="w-5 h-5" /></>
+            )}
+          </button>
         </form>
 
         <div className="mt-8 text-center text-sm text-slate-500">
