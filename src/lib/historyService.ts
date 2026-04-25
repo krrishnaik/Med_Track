@@ -62,7 +62,7 @@ function deriveRiskLevel(severity: string, short_analysis: string): MedCheck['ri
 // Automatically fetch from Firestore when a user logs in!
 if (typeof window !== 'undefined') {
   onAuthStateChanged(auth, async (user) => {
-    if (user) {
+    if (user && user.uid) {
       try {
         const db = getFirestore();
         const snapshot = await getDocs(collection(db, `users/${user.uid}/history`));
@@ -115,7 +115,7 @@ export function saveCheck(
   writeAll(all);
 
   // 2. Backup to Firestore Cloud in the background
-  if (auth.currentUser) {
+  if (auth.currentUser && auth.currentUser.uid) {
     try {
       const db = getFirestore();
       setDoc(doc(db, `users/${auth.currentUser.uid}/history`, check.id), check);
@@ -136,7 +136,7 @@ export function deleteCheck(id: string): void {
   writeAll(readAll().filter((c) => c.id !== id));
   
   // 2. Delete from Cloud
-  if (auth.currentUser) {
+  if (auth.currentUser && auth.currentUser.uid) {
     try {
       const db = getFirestore();
       deleteDoc(doc(db, `users/${auth.currentUser.uid}/history`, id));

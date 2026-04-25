@@ -18,7 +18,8 @@ const AVATAR_COLORS = [
 
 export default function ProfilePage() {
   // ── Existing state & logic (UNTOUCHED) ────────────────────────────────────
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<User | null>(auth.currentUser);
+  const [isLoading, setIsLoading] = useState(!auth.currentUser);
   const [stats, setStats] = useState({
     totalChecks: 0, interactions: 0, safe: 0, cascades: 0, drugs: 0, lastCheck: 'Never',
   });
@@ -27,6 +28,7 @@ export default function ProfilePage() {
     const unsub = onAuthStateChanged(auth, (u) => {
       if (u) { setUser(u); }
       else { setUser(null); setStats({ totalChecks: 0, interactions: 0, safe: 0, cascades: 0, drugs: 0, lastCheck: 'Never' }); }
+      setIsLoading(false);
     });
 
     const calculateStats = () => {
@@ -78,6 +80,10 @@ export default function ProfilePage() {
 
   const startEdit = () => { setNameInput(displayName); setEditing(true); setSaveMsg(''); };
   const cancelEdit = () => { setEditing(false); setSaveMsg(''); };
+
+  if (isLoading) {
+    return <div className="flex justify-center items-center h-64 text-slate-400">Loading profile...</div>;
+  }
 
   const saveName = async () => {
     if (!user || !nameInput.trim()) return;
