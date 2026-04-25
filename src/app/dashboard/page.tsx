@@ -9,6 +9,7 @@ import {
 } from 'lucide-react';
 import { auth } from '@/lib/firebase';
 import { onAuthStateChanged } from 'firebase/auth';
+import { getFirestore, doc, getDoc } from 'firebase/firestore';
 import {
   getChecks, subscribeToHistory, getStats, MedCheck,
 } from '@/lib/historyService';
@@ -139,9 +140,17 @@ export default function DashboardHome() {
     setMounted(true);
     refresh();
     const unsub = subscribeToHistory(() => refresh());
-    const unsubAuth = onAuthStateChanged(auth, (user) => {
+    const unsubAuth = onAuthStateChanged(auth, async (user) => {
       if (user) {
-        setDisplayName(user.displayName || user.email?.split('@')[0] || 'User');
+        let name = user.displayName || user.email?.split('@')[0] || 'User';
+        try {
+          const db = getFirestore();
+          const docSnap = await getDoc(doc(db, 'users', user.uid));
+          if (docSnap.exists() && docSnap.data().name) {
+            name = docSnap.data().name;
+          }
+        } catch (e) {}
+        setDisplayName(name);
       } else {
         setDisplayName('User');
       }

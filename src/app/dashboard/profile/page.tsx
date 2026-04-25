@@ -5,6 +5,7 @@ import { ShieldCheck, UserCheck, CheckCircle, Clock, ShieldAlert, Zap, Box, Acti
 import { auth } from '@/lib/firebase';
 import { onAuthStateChanged, User, updateProfile } from 'firebase/auth';
 import { getChecks } from '@/lib/historyService';
+import { getFirestore, doc, getDoc } from 'firebase/firestore';
 
 // ── Avatar accent colour options ────────────────────────────────────────────
 const AVATAR_COLORS = [
@@ -25,9 +26,27 @@ export default function ProfilePage() {
   });
 
   useEffect(() => {
-    const unsub = onAuthStateChanged(auth, (u) => {
-      if (u) { setUser(u); }
-      else { setUser(null); setStats({ totalChecks: 0, interactions: 0, safe: 0, cascades: 0, drugs: 0, lastCheck: 'Never' }); }
+    const unsub = onAuthStateChanged(auth, async (u) => {
+      if (u) { 
+        try {
+          const db = getFirestore();
+          const docRef = doc(db, 'users', u.uid);
+          const docSnap = await getDoc(docRef);
+          
+          if (docSnap.exists()) {
+            const data = docSnap.data();
+            setUser({ ...u, displayName: data.name || u.displayName } as User);
+          } else {
+            setUser(u);
+          }
+        } catch (error) {
+          console.error("Failed to fetch user profile", error);
+          setUser(u);
+        }
+      } else { 
+        setUser(null); 
+        setStats({ totalChecks: 0, interactions: 0, safe: 0, cascades: 0, drugs: 0, lastCheck: 'Never' }); 
+      }
       setIsLoading(false);
     });
 

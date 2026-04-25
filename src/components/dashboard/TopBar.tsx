@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { auth } from '@/lib/firebase';
 import { onAuthStateChanged, signOut } from 'firebase/auth';
+import { getFirestore, doc, getDoc } from 'firebase/firestore';
 import { Search, Bell, LogOut, Stethoscope, History, Library, User, LayoutDashboard, X, CheckCircle, AlertTriangle, ShieldAlert, Clock } from 'lucide-react';
 import { getChecks } from '@/lib/historyService';
 
@@ -215,9 +216,18 @@ export default function TopBar() {
   const [initial, setInitial] = useState('U');
 
   useEffect(() => {
-    const unsub = onAuthStateChanged(auth, (user) => {
+    const unsub = onAuthStateChanged(auth, async (user) => {
       if (user) {
-        const name = user.displayName || user.email?.split('@')[0] || 'User';
+        let name = user.displayName || user.email?.split('@')[0] || 'User';
+        try {
+          const db = getFirestore();
+          const docSnap = await getDoc(doc(db, 'users', user.uid));
+          if (docSnap.exists() && docSnap.data().name) {
+            name = docSnap.data().name;
+          }
+        } catch (error) {
+          console.error("Failed to fetch user profile in TopBar", error);
+        }
         setDisplayName(name);
         setInitial(name.charAt(0).toUpperCase());
       } else {
@@ -230,6 +240,8 @@ export default function TopBar() {
 
   const handleSignOut = async () => {
     await signOut(auth);
+    setDisplayName('User');
+    setInitial('U');
     localStorage.removeItem('medtrack_history');
     localStorage.clear();
     window.location.href = '/login';
