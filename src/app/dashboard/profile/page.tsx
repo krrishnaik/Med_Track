@@ -28,20 +28,24 @@ export default function ProfilePage() {
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, async (u) => {
       if (u) { 
+        if (!u.uid) {
+          setUser({ ...u, displayName: u.email?.split('@')[0] || 'User' } as User);
+          setIsLoading(false);
+          return;
+        }
         try {
           const db = getFirestore();
           const docRef = doc(db, 'users', u.uid);
           const docSnap = await getDoc(docRef);
           
-          if (docSnap.exists()) {
-            const data = docSnap.data();
-            setUser({ ...u, displayName: data.name || u.displayName } as User);
+          if (docSnap.exists() && docSnap.data().name) {
+            setUser({ ...u, displayName: docSnap.data().name } as User);
           } else {
-            setUser(u);
+            setUser({ ...u, displayName: u.email?.split('@')[0] || 'User' } as User);
           }
         } catch (error) {
           console.error("Failed to fetch user profile", error);
-          setUser(u);
+          setUser({ ...u, displayName: u.email?.split('@')[0] || 'User' } as User);
         }
       } else { 
         setUser(null); 

@@ -142,14 +142,16 @@ export default function DashboardHome() {
     const unsub = subscribeToHistory(() => refresh());
     const unsubAuth = onAuthStateChanged(auth, async (user) => {
       if (user) {
-        let name = user.displayName || user.email?.split('@')[0] || 'User';
-        try {
-          const db = getFirestore();
-          const docSnap = await getDoc(doc(db, 'users', user.uid));
-          if (docSnap.exists() && docSnap.data().name) {
-            name = docSnap.data().name;
-          }
-        } catch (e) {}
+        let name = user.email?.split('@')[0] || 'User'; // Fallback
+        if (user.uid) {
+          try {
+            const db = getFirestore();
+            const docSnap = await getDoc(doc(db, 'users', user.uid));
+            if (docSnap.exists() && docSnap.data().name) {
+              name = docSnap.data().name;
+            }
+          } catch (e) {}
+        }
         setDisplayName(name);
       } else {
         setDisplayName('User');

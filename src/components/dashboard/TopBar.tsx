@@ -218,15 +218,17 @@ export default function TopBar() {
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, async (user) => {
       if (user) {
-        let name = user.displayName || user.email?.split('@')[0] || 'User';
-        try {
-          const db = getFirestore();
-          const docSnap = await getDoc(doc(db, 'users', user.uid));
-          if (docSnap.exists() && docSnap.data().name) {
-            name = docSnap.data().name;
+        let name = user.email?.split('@')[0] || 'User'; // Fallback
+        if (user.uid) {
+          try {
+            const db = getFirestore();
+            const docSnap = await getDoc(doc(db, 'users', user.uid));
+            if (docSnap.exists() && docSnap.data().name) {
+              name = docSnap.data().name;
+            }
+          } catch (error) {
+            console.error("Failed to fetch user profile in TopBar", error);
           }
-        } catch (error) {
-          console.error("Failed to fetch user profile in TopBar", error);
         }
         setDisplayName(name);
         setInitial(name.charAt(0).toUpperCase());
