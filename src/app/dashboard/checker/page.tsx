@@ -13,6 +13,8 @@ export default function CheckerPage() {
   const { t, lang, setLang } = useTranslation();
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [scanning, setScanning] = useState(false);
+  const [scanSuccess, setScanSuccess] = useState(false);
+  const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [reading, setReading] = useState(false);
   const [isRecording, setIsRecording] = useState(false);
   const [isProcessingAudio, setIsProcessingAudio] = useState(false);
@@ -77,21 +79,23 @@ export default function CheckerPage() {
     const file = e.target.files?.[0];
     if (!file) return;
 
+    setScanSuccess(false);
     setScanning(true);
-    try {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = async () => {
-        const base64Image = reader.result as string;
-        
+
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = async () => {
+      const base64Image = reader.result as string;
+      setImagePreview(base64Image);
+      try {
         const response = await fetch(`${API}/api/scan-prescription`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ image: base64Image })
         });
-        
+
         if (!response.ok) throw new Error('Failed to scan image');
-        
+
         const data = await response.json();
         if (data.medications && data.medications.length > 0) {
           const newMeds = data.medications.map((m: any) => ({
@@ -101,14 +105,17 @@ export default function CheckerPage() {
           }));
           setMedications(newMeds);
         }
-      };
-    } catch (error) {
-      console.error('Scan error:', error);
-      alert(t('uploadError'));
-    } finally {
-      setScanning(false);
-      if (fileInputRef.current) fileInputRef.current.value = '';
-    }
+        setScanSuccess(true);
+        setTimeout(() => { setImagePreview(null); setScanSuccess(false); }, 3500);
+      } catch (error) {
+        console.error('Scan error:', error);
+        alert(t('uploadError'));
+        setImagePreview(null);
+      } finally {
+        setScanning(false);
+        if (fileInputRef.current) fileInputRef.current.value = '';
+      }
+    };
   };
 
   const toggleRecording = async () => {
@@ -388,15 +395,15 @@ export default function CheckerPage() {
       {/* ── Top Navbar ─────────────────────────────────────────────────── */}
       <div className="flex flex-col sm:flex-row items-center justify-between bg-white/80 backdrop-blur-sm rounded-[2rem] p-5 shadow-sm shadow-teal-900/[0.03] border border-slate-100/60 gap-4">
         <div className="flex items-center gap-4">
-          <input 
-            type="file" 
-            accept="image/*" 
-            capture="environment" 
-            className="hidden" 
-            ref={fileInputRef} 
-            onChange={handleScanImage} 
+          <input
+            type="file"
+            accept="image/*"
+            capture="environment"
+            className="hidden"
+            ref={fileInputRef}
+            onChange={handleScanImage}
           />
-          <button 
+          <button
             onClick={() => fileInputRef.current?.click()}
             disabled={scanning || isRecording || isProcessingAudio}
             className="flex items-center gap-2 px-5 py-2.5 bg-[var(--color-brand-soft-teal)] text-[var(--color-brand-teal-dark)] hover:bg-teal-100 rounded-full font-semibold transition-all duration-300 ease-out disabled:opacity-50 hover:-translate-y-0.5 hover:shadow-sm text-sm tracking-tight"
@@ -404,14 +411,14 @@ export default function CheckerPage() {
             <Camera className="w-5 h-5" />
             {scanning ? t('readingPrescription') : t('uploadPrescription')}
           </button>
-          
+
           <button
             onClick={toggleRecording}
             disabled={scanning || isProcessingAudio}
             className={clsx(
               "flex items-center gap-2 px-5 py-2.5 rounded-full font-semibold transition-all duration-300 ease-out disabled:opacity-50 text-sm tracking-tight",
-              isRecording 
-                ? "bg-rose-100 text-rose-700 animate-pulse" 
+              isRecording
+                ? "bg-rose-100 text-rose-700"
                 : "bg-[var(--color-brand-soft-teal)] text-[var(--color-brand-teal-dark)] hover:bg-teal-100 hover:-translate-y-0.5 hover:shadow-sm"
             )}
           >
@@ -431,18 +438,108 @@ export default function CheckerPage() {
         </div>
       </div>
 
-      {/* ── Live Transcript Banner ────────────────────────────────────── */}
-      {(isRecording || liveTranscript) && (
-        <div className="bg-gradient-to-r from-teal-50 to-emerald-50 rounded-2xl p-4 shadow-sm border border-teal-100 animate-[fadeUp_0.3s_ease-out_forwards]">
-          <div className="flex items-center gap-3 mb-2">
-            <div className={clsx("w-3 h-3 rounded-full", isRecording ? "bg-rose-500 animate-pulse" : "bg-teal-500")} />
-            <span className="text-sm font-bold text-teal-800 uppercase tracking-wider">
-              {isRecording ? 'Listening...' : 'Transcript Ready'}
+      {/* ── OCR Image Preview Card ─────────────────────────────────────── */}
+      {imagePreview && (
+        <div className="relative rounded-2xl overflow-hidden border border-slate-200 shadow-md animate-[fadeUp_0.3s_ease-out_forwards]">
+          {/* Image */}
+          <img
+            src={imagePreview}
+            alt="Prescription preview"
+            className="w-full max-h-52 object-cover"
+          />
+
+          {/* Scanning overlay */}
+          {scanning && (
+            <div className="absolute inset-0 bg-teal-900/60 backdrop-blur-[2px] flex flex-col items-center justify-center gap-3">
+              {/* Animated scan line */}
+              <div className="w-4/5 h-0.5 bg-teal-300/80 rounded-full"
+                style={{ animation: 'scanLine 1.4s ease-in-out infinite alternate' }} />
+              <div className="flex items-center gap-3">
+                <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                <span className="text-white font-semibold text-sm tracking-wide">Reading prescription with AI…</span>
+              </div>
+            </div>
+          )}
+
+          {/* Success overlay */}
+          {scanSuccess && !scanning && (
+            <div className="absolute inset-0 bg-emerald-900/55 backdrop-blur-[2px] flex flex-col items-center justify-center gap-2 animate-[fadeUp_0.2s_ease-out_forwards]">
+              <div className="w-12 h-12 rounded-full bg-emerald-400 flex items-center justify-center shadow-lg">
+                <CheckCircle2 className="w-7 h-7 text-white" />
+              </div>
+              <span className="text-white font-semibold text-sm">Medications extracted successfully</span>
+            </div>
+          )}
+
+          {/* Label strip */}
+          <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/50 to-transparent px-4 py-2 flex items-center gap-2">
+            <Camera className="w-4 h-4 text-white/80" />
+            <span className="text-xs text-white/90 font-medium">Prescription Image</span>
+          </div>
+        </div>
+      )}
+
+      {/* ── Voice Recording Panel ──────────────────────────────────────── */}
+      {(isRecording || isProcessingAudio || liveTranscript) && (
+        <div className={clsx(
+          "rounded-2xl border shadow-sm animate-[fadeUp_0.3s_ease-out_forwards] overflow-hidden",
+          isRecording ? "border-rose-200 bg-rose-50" : isProcessingAudio ? "border-teal-200 bg-teal-50" : "border-emerald-200 bg-emerald-50"
+        )}>
+          {/* Header bar */}
+          <div className={clsx(
+            "flex items-center gap-3 px-5 py-3",
+            isRecording ? "bg-rose-100/60" : isProcessingAudio ? "bg-teal-100/60" : "bg-emerald-100/60"
+          )}>
+            {/* Mic icon with pulse ring */}
+            <div className="relative flex items-center justify-center">
+              {isRecording && (
+                <span className="absolute inline-flex h-8 w-8 rounded-full bg-rose-400 opacity-40 animate-ping" />
+              )}
+              <div className={clsx(
+                "w-8 h-8 rounded-full flex items-center justify-center z-10",
+                isRecording ? "bg-rose-500" : isProcessingAudio ? "bg-teal-500" : "bg-emerald-500"
+              )}>
+                {isProcessingAudio
+                  ? <div className="w-4 h-4 border-2 border-white/40 border-t-white rounded-full animate-spin" />
+                  : isRecording
+                    ? <MicOff className="w-4 h-4 text-white" />
+                    : <Mic className="w-4 h-4 text-white" />
+                }
+              </div>
+            </div>
+
+            {/* Animated waveform bars — only while recording */}
+            {isRecording && (
+              <div className="flex items-end gap-[3px] h-6">
+                {[0.4, 0.7, 1, 0.6, 0.9, 0.5, 0.8, 0.45, 0.75, 0.55].map((scale, i) => (
+                  <div
+                    key={i}
+                    className="w-1 bg-rose-500 rounded-full"
+                    style={{
+                      height: `${scale * 100}%`,
+                      animation: `waveBar 0.8s ease-in-out ${i * 0.08}s infinite alternate`,
+                    }}
+                  />
+                ))}
+              </div>
+            )}
+
+            <span className={clsx(
+              "text-sm font-bold uppercase tracking-wider ml-1",
+              isRecording ? "text-rose-700" : isProcessingAudio ? "text-teal-700" : "text-emerald-700"
+            )}>
+              {isRecording ? 'Listening…' : isProcessingAudio ? 'Extracting medications…' : 'Transcript ready'}
             </span>
           </div>
-          <p className="text-slate-700 text-sm leading-relaxed italic min-h-[1.5em]">
-            {liveTranscript || 'Start speaking your medications...'}
-          </p>
+
+          {/* Transcript body */}
+          {(isRecording || liveTranscript) && (
+            <div className="px-5 py-4">
+              <p className="text-slate-700 text-sm leading-relaxed italic min-h-[1.5em]">
+                {liveTranscript || 'Start speaking your medications…'}
+              </p>
+            </div>
+          )}
         </div>
       )}
 

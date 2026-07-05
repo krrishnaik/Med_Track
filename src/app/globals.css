@@ -86,6 +86,18 @@
     100% { transform: scale(0.95); opacity: 0.7; }
   }
 
+  /* OCR scan-line sweep */
+  @keyframes scanLine {
+    0%   { transform: translateY(-80px); opacity: 0.5; }
+    100% { transform: translateY(80px);  opacity: 1; }
+  }
+
+  /* Voice waveform bar bounce */
+  @keyframes waveBar {
+    0%   { transform: scaleY(0.3); }
+    100% { transform: scaleY(1); }
+  }
+
   .hover-lift {
     @apply transition-all duration-300 ease-out;
   }
