@@ -66,35 +66,42 @@ A visual home base that shows animated safety and risk scores, a log of recent a
 
 > **Dashboard — Interactive Risk Overview**
 
-<img width="1919" height="911" alt="image" src="https://github.com/user-attachments/assets/37f30e4b-8a33-42ed-8f34-faf1918a196a" />
+<img width="1919" height="912" alt="image" src="https://github.com/user-attachments/assets/6e64f9e7-0fb2-4aaf-9819-ef10be8c95c7" />
 
 <!-- Drop your dashboard screenshot here -->
 <br><br>
 
 > **AI Cascade Checker — 3-Tier Analysis Report**
 
-<img width="1919" height="909" alt="image" src="https://github.com/user-attachments/assets/40b79ff9-9aea-45a4-ba55-046fc9093a9e" />
+<img width="1919" height="910" alt="image" src="https://github.com/user-attachments/assets/e47b4f88-9bb3-4107-9ec5-ad592bd9e9af" />
+<img width="1919" height="912" alt="image" src="https://github.com/user-attachments/assets/ce39d620-3511-4773-9363-eae063590c21" />
+<img width="1919" height="911" alt="image" src="https://github.com/user-attachments/assets/966cc3f0-fb43-4c0e-86b9-ef5e3a62e2f2" />
+<img width="1919" height="912" alt="image" src="https://github.com/user-attachments/assets/3a8b867f-0d1b-4367-aa03-8aa5b20f2ae1" />
 
 <!-- Drop your checker screenshot here -->
 <br><br>
 
 > **Prescription OCR Scanner**
 
-<img width="1919" height="911" alt="image" src="https://github.com/user-attachments/assets/42d2eb9e-ea54-4586-a9e4-70b54d5ebb25" />
+<img width="1919" height="911" alt="image" src="https://github.com/user-attachments/assets/6091949d-28b0-41f0-9080-3a04a6c12885" />
+
 
 <!-- Drop your OCR scanner screenshot here -->
 <br><br>
 
 > **Drug Library — A-Z Encyclopedia**
 
-<img width="1919" height="910" alt="image" src="https://github.com/user-attachments/assets/5cf2d146-7ae4-4880-b9be-009ad72f783b" />
+<img width="1919" height="910" alt="image" src="https://github.com/user-attachments/assets/a181fd36-0aca-439c-95ae-6f474a358d9f" />
+<img width="1919" height="913" alt="image" src="https://github.com/user-attachments/assets/63b7ddf0-7bb7-44e9-83a1-e8d44e691be6" />
+
 
 <!-- Drop your drug library screenshot here -->
 <br><br>
 
 > **Voice Dictation — Live Transcript**
 
-<img width="1913" height="891" alt="image" src="https://github.com/user-attachments/assets/b35d748e-d245-4325-8b96-01f0d512e9db" />
+<img width="1919" height="889" alt="image" src="https://github.com/user-attachments/assets/c8898d32-f336-4a1c-80fe-ea3937063af7" />
+
 
 <!-- Drop your voice dictation screenshot here -->
 <br><br>
