@@ -4,7 +4,7 @@
 
 *Built for patients, caregivers, and clinical decision support researchers.*
 
-**Live Deployment:** [MedTrack on Vercel](https://medtrack-coral.vercel.app/) (Replace with actual link)
+**Live Deployment:** [MedTrack](https://medtrack-ai.vercel.app/)
 
 ---
 
@@ -66,25 +66,35 @@ A visual home base that shows animated safety and risk scores, a log of recent a
 
 > **Dashboard — Interactive Risk Overview**
 
+<img width="1919" height="911" alt="image" src="https://github.com/user-attachments/assets/37f30e4b-8a33-42ed-8f34-faf1918a196a" />
+
 <!-- Drop your dashboard screenshot here -->
 <br><br>
 
 > **AI Cascade Checker — 3-Tier Analysis Report**
+
+<img width="1919" height="909" alt="image" src="https://github.com/user-attachments/assets/40b79ff9-9aea-45a4-ba55-046fc9093a9e" />
 
 <!-- Drop your checker screenshot here -->
 <br><br>
 
 > **Prescription OCR Scanner**
 
+<img width="1919" height="911" alt="image" src="https://github.com/user-attachments/assets/42d2eb9e-ea54-4586-a9e4-70b54d5ebb25" />
+
 <!-- Drop your OCR scanner screenshot here -->
 <br><br>
 
 > **Drug Library — A-Z Encyclopedia**
 
+<img width="1919" height="910" alt="image" src="https://github.com/user-attachments/assets/5cf2d146-7ae4-4880-b9be-009ad72f783b" />
+
 <!-- Drop your drug library screenshot here -->
 <br><br>
 
 > **Voice Dictation — Live Transcript**
+
+<img width="1913" height="891" alt="image" src="https://github.com/user-attachments/assets/b35d748e-d245-4325-8b96-01f0d512e9db" />
 
 <!-- Drop your voice dictation screenshot here -->
 <br><br>
@@ -312,8 +322,9 @@ For ease of review and testing, you can log in using the following test credenti
 
 | Resource | Link |
 |---|---|
-| Live Deployment | [MedTrack on Vercel](https://medtrack-coral.vercel.app/) |
 | Video Demo | *(Insert YouTube / Vimeo link here)* |
+| Voice Dictation Audio | *(Insert audio file or link here)* |
+| Live Deployment | [MedTrack](https://medtrack-ai.vercel.app/) |
 
 ---
 
