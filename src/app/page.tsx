@@ -2,6 +2,20 @@ import Link from 'next/link';
 import { Shield, ArrowRight, Activity, Database, Server, Component } from 'lucide-react';
 import { MedTrackLogo } from '@/components/dashboard/Sidebar';
 
+const Twitter = (props: React.SVGProps<SVGSVGElement>) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
+    <path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5 2.8 12 3 12c.3.1 0.6.2 1 .2C2 10.9 2 7 2 7c.5.3 1 .5 1.7.5C2 5.5 2.8 2 2.8 2c3.1 3.8 7.5 6 12.2 6.2C14.5 5.5 17 4 19.5 5.5c1.1-.3 2.1-.8 3-1.5-.2 1.1-1 2-1.5 2.5z" />
+  </svg>
+);
+
+const Linkedin = (props: React.SVGProps<SVGSVGElement>) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
+    <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+    <rect width="4" height="12" x="2" y="9" />
+    <circle cx="4" cy="4" r="2" />
+  </svg>
+);
+
 export default function LandingPage() {
   return (
     <div className="min-h-screen bg-[var(--color-brand-cream)] overflow-hidden font-sans">
@@ -25,20 +39,20 @@ export default function LandingPage() {
 
       {/* Hero Section */}
       <section className="pt-32 pb-20 px-6 max-w-7xl mx-auto min-h-[90vh] flex flex-col lg:flex-row items-center gap-16">
-        <div className="flex-1 space-y-8 animate-[fadeUp_0.8s_ease-out_forwards]">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#E8F4F8] text-[var(--color-brand-teal-dark)] text-sm font-semibold tracking-wide hover-lift">
+        <div className="flex-1 space-y-8">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#E8F4F8] text-[var(--color-brand-teal-dark)] text-sm font-semibold tracking-wide hover-lift opacity-0 animate-[fadeUp_0.8s_cubic-bezier(0.16,1,0.3,1)_0.1s_forwards]">
             <Shield className="w-4 h-4" />
             <span>AI-Powered Safety</span>
           </div>
-          <h1 className="text-6xl md:text-[5.5rem] leading-[1.05] tracking-tight font-serif text-slate-900">
+          <h1 className="text-6xl md:text-[5.5rem] leading-[1.05] tracking-tight font-serif text-slate-900 opacity-0 animate-[fadeUp_0.8s_cubic-bezier(0.16,1,0.3,1)_0.2s_forwards]">
             Stop the <br/>
             <span className="text-[var(--color-brand-teal)]">Prescription</span><br/>
             <span className="text-[var(--color-brand-teal)]">Cascade.</span>
           </h1>
-          <p className="text-xl text-slate-600 max-w-lg leading-relaxed">
+          <p className="text-xl text-slate-600 max-w-lg leading-relaxed opacity-0 animate-[fadeUp_0.8s_cubic-bezier(0.16,1,0.3,1)_0.3s_forwards]">
             Don't let medication side effects be mistaken for new medical conditions. Run comprehensive checks to see how your drugs interact safely.
           </p>
-          <div className="flex items-center gap-4 pt-4">
+          <div className="flex items-center gap-4 pt-4 opacity-0 animate-[fadeUp_0.8s_cubic-bezier(0.16,1,0.3,1)_0.4s_forwards]">
             <Link href="/signup" className="px-8 py-4 rounded-full bg-[var(--color-brand-teal)] text-white font-medium text-lg hover:bg-[var(--color-brand-teal-dark)] transition-all hover-lift shadow-xl shadow-teal-900/20 flex items-center gap-2">
               Start Now <ArrowRight className="w-5 h-5" />
             </Link>
@@ -47,12 +61,12 @@ export default function LandingPage() {
         
         <div className="flex-1 relative w-full h-[500px] flex items-center justify-center">
           {/* Abstract floating background glow */}
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-[var(--color-brand-teal)]/10 rounded-full blur-[100px] animate-float pointer-events-none"></div>
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-[var(--color-brand-teal)]/10 rounded-full blur-[100px] animate-breathe pointer-events-none"></div>
 
           {/* Floating Glassmorphic Drug Cards */}
           <div className="relative w-full max-w-lg h-full">
             {/* Top Right Card */}
-            <div className="absolute top-[10%] right-[5%] w-[280px] p-4 bg-white/95 backdrop-blur-xl rounded-[1.5rem] shadow-xl shadow-slate-200/50 animate-float hover-lift z-10" style={{ animationDelay: '0.5s' }}>
+            <div className="absolute top-[10%] right-[5%] w-[280px] p-4 bg-white/70 backdrop-blur-2xl border border-white/40 rounded-[1.5rem] shadow-xl shadow-teal-900/5 animate-[float_8s_ease-in-out_infinite_alternate] hover-lift z-10" style={{ animationDelay: '0.2s' }}>
               <div className="flex items-center gap-4 mb-3">
                 <div className="w-12 h-12 rounded-full bg-rose-50 flex items-center justify-center text-rose-500">
                   <Activity className="w-6 h-6" />
@@ -62,13 +76,13 @@ export default function LandingPage() {
                   <p className="text-sm text-slate-500">10mg • Daily</p>
                 </div>
               </div>
-              <div className="text-sm text-rose-600 font-medium bg-rose-50/50 p-2.5 rounded-xl flex items-center gap-2">
+              <div className="text-sm text-rose-600 font-medium bg-rose-50/70 p-2.5 rounded-xl flex items-center gap-2">
                 <span className="text-rose-500">⚠️</span> Potential interaction detected
               </div>
             </div>
 
             {/* Center Left Card */}
-            <div className="absolute top-[40%] left-[0%] w-[320px] p-5 bg-white/95 backdrop-blur-xl rounded-[2rem] shadow-2xl shadow-slate-200/50 animate-float border border-slate-100 z-20 hover-lift" style={{ animationDelay: '1.5s' }}>
+            <div className="absolute top-[40%] left-[0%] w-[320px] p-5 bg-white/80 backdrop-blur-2xl border border-white/50 rounded-[2rem] shadow-2xl shadow-teal-900/10 animate-[float_12s_ease-in-out_infinite_alternate-reverse] z-20 hover-lift" style={{ animationDelay: '1s' }}>
                <div className="flex items-center gap-5 mb-5">
                 <div className="w-14 h-14 rounded-full bg-[var(--color-brand-teal-dark)] text-white flex items-center justify-center shadow-lg shadow-teal-900/20">
                   <Shield className="w-7 h-7" />
@@ -84,7 +98,7 @@ export default function LandingPage() {
             </div>
 
             {/* Bottom Right Card */}
-            <div className="absolute bottom-[10%] right-[10%] w-[260px] p-4 bg-white/95 backdrop-blur-xl rounded-[1.5rem] shadow-xl shadow-slate-200/50 animate-float hover-lift z-10" style={{ animationDelay: '2.5s' }}>
+            <div className="absolute bottom-[10%] right-[10%] w-[260px] p-4 bg-white/70 backdrop-blur-2xl border border-white/40 rounded-[1.5rem] shadow-xl shadow-teal-900/5 animate-[float_9s_ease-in-out_infinite_alternate] hover-lift z-10" style={{ animationDelay: '0.7s' }}>
               <div className="flex items-center gap-4">
                 <div className="w-12 h-12 rounded-full bg-sky-50 flex items-center justify-center text-sky-500">
                   <Activity className="w-6 h-6" />
@@ -113,9 +127,9 @@ export default function LandingPage() {
               { step: '02', title: 'Mistaken for Config', desc: 'The side effect is misdiagnosed as a new, separate medical condition.' },
               { step: '03', title: 'Another Drug Prescribed', desc: 'A secondary drug is added to treat the condition, compounding toxicity.' }
             ].map((item, i) => (
-              <div key={i} className="bg-[var(--color-brand-cream)] p-10 rounded-[2.5rem] hover-lift transition-all duration-300">
-                <div className="text-6xl font-serif text-[var(--color-brand-teal)]/30 mb-8">{item.step}</div>
-                <h3 className="text-2xl font-serif text-slate-900 mb-4 tracking-tight leading-snug">{item.title}</h3>
+              <div key={i} className="group bg-[var(--color-brand-cream)] p-10 rounded-[2.5rem] transition-all duration-500 hover:-translate-y-2 hover:bg-white hover:shadow-2xl hover:shadow-teal-900/5 border border-transparent hover:border-teal-100 opacity-0 animate-[fadeUp_0.8s_cubic-bezier(0.16,1,0.3,1)_forwards]" style={{ animationDelay: `${0.2 + i * 0.15}s` }}>
+                <div className="text-6xl font-serif text-[var(--color-brand-teal)]/30 group-hover:text-[var(--color-brand-teal)]/50 group-hover:scale-110 transition-all duration-500 origin-left mb-8">{item.step}</div>
+                <h3 className="text-2xl font-serif text-slate-900 mb-4 tracking-tight leading-snug group-hover:text-[var(--color-brand-teal-dark)] transition-colors">{item.title}</h3>
                 <p className="text-slate-600 leading-relaxed text-lg">{item.desc}</p>
               </div>
             ))}
@@ -125,17 +139,17 @@ export default function LandingPage() {
 
       {/* Tech Architecture Section */}
       <section className="py-32 bg-[#1A464C] text-white relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-[var(--color-brand-teal)] rounded-full blur-[150px] opacity-20 animate-float pointer-events-none"></div>
+        <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-[var(--color-brand-teal)] rounded-full blur-[150px] opacity-20 animate-breathe pointer-events-none"></div>
         <div className="max-w-7xl mx-auto px-6 relative z-10">
           <div className="flex flex-col md:flex-row items-center gap-20">
             <div className="flex-1 text-left">
-              <h2 className="text-5xl md:text-6xl mb-8 font-serif tracking-tight">Robust Architecture</h2>
-              <p className="text-teal-50 text-xl mb-12 leading-relaxed max-w-lg opacity-90">
+              <h2 className="text-5xl md:text-6xl mb-8 font-serif tracking-tight opacity-0 animate-[fadeUp_0.8s_cubic-bezier(0.16,1,0.3,1)_forwards]">Robust Architecture</h2>
+              <p className="text-teal-50 text-xl mb-12 leading-relaxed max-w-lg opacity-90 opacity-0 animate-[fadeUp_0.8s_cubic-bezier(0.16,1,0.3,1)_0.1s_forwards]">
                 MedTrack is powered by an architecture separating heavy analytical logic from the fast, interactive user interface.
               </p>
-              <ul className="space-y-8 max-w-md">
+              <ul className="space-y-8 max-w-md opacity-0 animate-[fadeUp_0.8s_cubic-bezier(0.16,1,0.3,1)_0.2s_forwards]">
                 <li className="flex items-start gap-5 group cursor-pointer">
-                  <div className="w-14 h-14 rounded-2xl bg-teal-900/60 flex items-center justify-center shrink-0 border border-teal-700/50 group-hover:bg-[var(--color-brand-teal)] transition-colors duration-300">
+                  <div className="w-14 h-14 rounded-2xl bg-teal-900/60 flex items-center justify-center shrink-0 border border-teal-700/50 group-hover:bg-[var(--color-brand-teal)] group-hover:scale-110 transition-all duration-300">
                     <Component className="w-7 h-7 text-teal-100" />
                   </div>
                   <div>
@@ -144,7 +158,7 @@ export default function LandingPage() {
                   </div>
                 </li>
                 <li className="flex items-start gap-5 group cursor-pointer">
-                  <div className="w-14 h-14 rounded-2xl bg-teal-900/60 flex items-center justify-center shrink-0 border border-teal-700/50 group-hover:bg-[var(--color-brand-teal)] transition-colors duration-300">
+                  <div className="w-14 h-14 rounded-2xl bg-teal-900/60 flex items-center justify-center shrink-0 border border-teal-700/50 group-hover:bg-[var(--color-brand-teal)] group-hover:scale-110 transition-all duration-300">
                     <Server className="w-7 h-7 text-teal-100" />
                   </div>
                   <div>
@@ -153,7 +167,7 @@ export default function LandingPage() {
                   </div>
                 </li>
                 <li className="flex items-start gap-5 group cursor-pointer">
-                  <div className="w-14 h-14 rounded-2xl bg-teal-900/60 flex items-center justify-center shrink-0 border border-teal-700/50 group-hover:bg-[var(--color-brand-teal)] transition-colors duration-300">
+                  <div className="w-14 h-14 rounded-2xl bg-teal-900/60 flex items-center justify-center shrink-0 border border-teal-700/50 group-hover:bg-[var(--color-brand-teal)] group-hover:scale-110 transition-all duration-300">
                     <Database className="w-7 h-7 text-teal-100" />
                   </div>
                   <div>
@@ -164,26 +178,27 @@ export default function LandingPage() {
               </ul>
             </div>
             
-            <div className="flex-1 w-full flex justify-center py-10 md:py-0">
+            <div className="flex-1 w-full flex justify-center py-10 md:py-0 opacity-0 animate-[fadeUp_0.8s_cubic-bezier(0.16,1,0.3,1)_0.4s_forwards]">
               <div className="w-full max-w-lg aspect-square rounded-full border border-teal-600/30 flex items-center justify-center relative">
                 {/* Dotted outer ring */}
-                <div className="absolute inset-[-40px] rounded-full border border-dashed border-teal-600/30 animate-[spin_60s_linear_infinite]"></div>
+                <div className="absolute inset-[-40px] rounded-full border border-dashed border-teal-600/30 animate-[spin_60s_linear_infinite] opacity-50"></div>
 
-                <div className="absolute top-[5%] right-[15%] transform p-6 bg-[#3D6A70] rounded-[1.5rem] text-white animate-float shadow-xl shadow-black/20" style={{ animationDelay: '1s' }}>
+                <div className="absolute top-[5%] right-[15%] transform p-6 bg-[#3D6A70]/80 backdrop-blur-md rounded-[1.5rem] text-white animate-[float_6s_ease-in-out_infinite_alternate] shadow-xl shadow-black/20 hover:scale-110 transition-transform duration-300 cursor-pointer z-10" style={{ animationDelay: '0s' }}>
                   <Server className="w-8 h-8 text-teal-200 mb-2" />
                   <div className="text-sm font-bold tracking-wide">Flask API</div>
                 </div>
-                <div className="absolute top-[35%] right-[-5%] transform p-6 bg-[#3D6A70] rounded-[1.5rem] text-white animate-float shadow-xl shadow-black/20" style={{ animationDelay: '2s' }}>
+                <div className="absolute top-[35%] right-[-5%] transform p-6 bg-[#3D6A70]/80 backdrop-blur-md rounded-[1.5rem] text-white animate-[float_8s_ease-in-out_infinite_alternate-reverse] shadow-xl shadow-black/20 hover:scale-110 transition-transform duration-300 cursor-pointer z-10" style={{ animationDelay: '1.5s' }}>
                   <Database className="w-8 h-8 text-orange-300 mb-2" />
                   <div className="text-sm font-bold tracking-wide">Firebase</div>
                 </div>
-                <div className="absolute bottom-[15%] left-[10%] transform p-6 bg-[#3D6A70] rounded-[1.5rem] text-white animate-float shadow-xl shadow-black/20" style={{ animationDelay: '0s' }}>
+                <div className="absolute bottom-[15%] left-[10%] transform p-6 bg-[#3D6A70]/80 backdrop-blur-md rounded-[1.5rem] text-white animate-[float_7s_ease-in-out_infinite_alternate] shadow-xl shadow-black/20 hover:scale-110 transition-transform duration-300 cursor-pointer z-10" style={{ animationDelay: '0.8s' }}>
                   <Component className="w-8 h-8 text-sky-300 mb-2" />
                   <div className="text-sm font-bold tracking-wide">Next.js</div>
                 </div>
                 
-                <div className="w-48 h-48 bg-[#113A40] rounded-full flex items-center justify-center shadow-2xl shadow-black/30">
-                  <Shield className="w-20 h-20 text-[var(--color-brand-teal)] drop-shadow-md" />
+                <div className="w-48 h-48 bg-[#113A40] rounded-full flex items-center justify-center shadow-[0_0_80px_rgba(43,106,115,0.4)] relative z-0">
+                  <div className="absolute inset-0 bg-teal-500/20 rounded-full animate-ping opacity-20" style={{ animationDuration: '3s' }}></div>
+                  <Shield className="w-20 h-20 text-[var(--color-brand-teal)] drop-shadow-[0_0_15px_rgba(43,106,115,0.8)] relative z-10" />
                 </div>
               </div>
             </div>
@@ -192,8 +207,23 @@ export default function LandingPage() {
       </section>
       
       {/* Footer */}
-      <footer className="py-8 text-center text-slate-500 text-sm bg-white font-medium">
-        © 2026 MedTrack. Prevent the Prescription Cascade.
+      <footer className="py-12 bg-white border-t border-slate-100">
+        <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-6">
+          <div className="text-slate-500 text-sm font-medium">
+            © 2026 MedTrack. Prevent the Prescription Cascade.
+          </div>
+          <div className="flex flex-col md:flex-row items-center gap-4 md:gap-6">
+            <span className="text-sm font-medium text-slate-500">Connect with the creator</span>
+            <div className="flex items-center gap-3">
+              <a href="https://x.com/KrrishNaik6" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-slate-50 border border-slate-100 flex items-center justify-center text-slate-400 hover:text-[#1DA1F2] hover:bg-sky-50 hover:border-sky-100 transition-all hover-lift" aria-label="Twitter">
+                <Twitter className="w-4 h-4" fill="currentColor" />
+              </a>
+              <a href="https://www.linkedin.com/in/krrishnaik" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-slate-50 border border-slate-100 flex items-center justify-center text-slate-400 hover:text-[#0A66C2] hover:bg-blue-50 hover:border-blue-100 transition-all hover-lift" aria-label="LinkedIn">
+                <Linkedin className="w-4 h-4" fill="currentColor" />
+              </a>
+            </div>
+          </div>
+        </div>
       </footer>
     </div>
   );
