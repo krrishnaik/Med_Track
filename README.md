@@ -62,28 +62,30 @@ A visual home base that shows animated safety and risk scores, a log of recent a
 
 ---
 
-## Screenshots
+## Images
 
 > **Dashboard — Interactive Risk Overview**
 
-<img width="1919" height="912" alt="image" src="https://github.com/user-attachments/assets/6e64f9e7-0fb2-4aaf-9819-ef10be8c95c7" />
+<img width="1919" height="911" alt="image" src="https://github.com/user-attachments/assets/292116be-6047-48b5-8875-6de3ae820689" />
+
 
 <!-- Drop your dashboard screenshot here -->
 <br><br>
 
 > **AI Cascade Checker — 3-Tier Analysis Report**
 
-<img width="1919" height="910" alt="image" src="https://github.com/user-attachments/assets/e47b4f88-9bb3-4107-9ec5-ad592bd9e9af" />
-<img width="1919" height="912" alt="image" src="https://github.com/user-attachments/assets/ce39d620-3511-4773-9363-eae063590c21" />
-<img width="1919" height="911" alt="image" src="https://github.com/user-attachments/assets/966cc3f0-fb43-4c0e-86b9-ef5e3a62e2f2" />
-<img width="1919" height="912" alt="image" src="https://github.com/user-attachments/assets/3a8b867f-0d1b-4367-aa03-8aa5b20f2ae1" />
+<img width="1919" height="911" alt="image" src="https://github.com/user-attachments/assets/0beb4c86-5824-4e7c-abc1-9150cf4bd779" />
+<img width="1918" height="908" alt="image" src="https://github.com/user-attachments/assets/80acfe83-e254-4cb7-aaa5-e68bfcfdf996" />
+<img width="1919" height="909" alt="image" src="https://github.com/user-attachments/assets/664bc2ea-535a-4223-b934-73ecec97b792" />
+
+
 
 <!-- Drop your checker screenshot here -->
 <br><br>
 
 > **Prescription OCR Scanner**
 
-<img width="1919" height="911" alt="image" src="https://github.com/user-attachments/assets/6091949d-28b0-41f0-9080-3a04a6c12885" />
+<img width="1919" height="911" alt="image" src="https://github.com/user-attachments/assets/5a02fc03-4303-4df7-aa7a-06fecdb6a6d7" />
 
 
 <!-- Drop your OCR scanner screenshot here -->
@@ -91,16 +93,15 @@ A visual home base that shows animated safety and risk scores, a log of recent a
 
 > **Drug Library — A-Z Encyclopedia**
 
-<img width="1919" height="910" alt="image" src="https://github.com/user-attachments/assets/a181fd36-0aca-439c-95ae-6f474a358d9f" />
-<img width="1919" height="913" alt="image" src="https://github.com/user-attachments/assets/63b7ddf0-7bb7-44e9-83a1-e8d44e691be6" />
-
+<img width="1918" height="911" alt="image" src="https://github.com/user-attachments/assets/b119a6d7-7410-4bb1-9ec2-ccc2d3a5665f" />
+<img width="1919" height="911" alt="image" src="https://github.com/user-attachments/assets/83e1d182-920d-48f4-8af6-adccfd3fce41" />
 
 <!-- Drop your drug library screenshot here -->
 <br><br>
 
 > **Voice Dictation — Live Transcript**
 
-<img width="1919" height="889" alt="image" src="https://github.com/user-attachments/assets/c8898d32-f336-4a1c-80fe-ea3937063af7" />
+<img width="1919" height="910" alt="image" src="https://github.com/user-attachments/assets/1d99e638-ff78-4fb3-a236-74f513258ef3" />
 
 
 <!-- Drop your voice dictation screenshot here -->
