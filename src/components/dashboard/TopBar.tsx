@@ -210,7 +210,7 @@ function NotificationPanel({ open, onClose }: { open: boolean; onClose: () => vo
 /* ══════════════════════════════════════════════════════════════════════════
    TopBar Component
    ══════════════════════════════════════════════════════════════════════════ */
-export default function TopBar() {
+export default function TopBar({ isCollapsed = false }: { isCollapsed?: boolean }) {
   const [displayName, setDisplayName] = useState(() => {
     if (typeof window !== 'undefined') {
       return localStorage.getItem('user_name_cache') || 'User';
@@ -301,22 +301,27 @@ export default function TopBar() {
     <>
       <SearchPalette open={searchOpen} onClose={() => setSearchOpen(false)} />
 
-      <header className="h-[72px] pl-[280px] fixed top-0 right-0 left-0 z-10 flex items-center justify-between px-8 bg-[var(--color-brand-cream)]/80 backdrop-blur-xl border-b border-slate-200/40">
+      <header className={`h-[72px] fixed top-0 right-0 left-0 z-10 flex items-center justify-between px-8 bg-[var(--color-brand-cream)]/80 backdrop-blur-xl border-b border-slate-200/40 transition-all duration-300 ${isCollapsed ? 'pl-[88px]' : 'pl-[280px]'}`}>
+        
+        {/* Empty left flex child for balance */}
+        <div className="flex-1 hidden md:block"></div>
 
         {/* ── Search Bar (clickable → opens palette) ─────────────────── */}
-        <button
-          onClick={() => setSearchOpen(true)}
-          className="hidden md:flex items-center gap-2.5 px-5 py-2.5 rounded-full border border-slate-200/60 bg-white/60 shadow-sm shadow-slate-200/30 hover:bg-white hover:border-slate-200 transition-all duration-300 ease-out max-w-sm w-full text-left hover:-translate-y-0.5 hover:shadow-md"
-        >
-          <Search className="w-4 h-4 text-slate-400 shrink-0" />
-          <span className="flex-1 text-sm text-slate-400 font-medium">Search pages & medications…</span>
-          <kbd className="hidden lg:inline-flex items-center gap-0.5 text-[10px] font-semibold text-slate-400 bg-slate-100/80 px-1.5 py-0.5 rounded-md border border-slate-200/60">
-            ⌘K
-          </kbd>
-        </button>
+        <div className="flex-[2] flex justify-center">
+          <button
+            onClick={() => setSearchOpen(true)}
+            className="hidden md:flex items-center gap-2.5 px-5 py-2.5 rounded-full border border-slate-200/60 bg-white/60 shadow-sm shadow-slate-200/30 hover:bg-white hover:border-slate-200 transition-all duration-300 ease-out w-full max-w-md text-left hover:-translate-y-0.5 hover:shadow-md"
+          >
+            <Search className="w-4 h-4 text-slate-400 shrink-0" />
+            <span className="flex-1 text-sm text-slate-400 font-medium">Search pages & medications…</span>
+            <kbd className="hidden lg:inline-flex items-center gap-0.5 text-[10px] font-semibold text-slate-400 bg-slate-100/80 px-1.5 py-0.5 rounded-md border border-slate-200/60">
+              ⌘K
+            </kbd>
+          </button>
+        </div>
 
         {/* ── Right: Bell + Profile + Logout ────────────────────────── */}
-        <div className="flex items-center gap-3">
+        <div className="flex-1 flex items-center justify-end gap-3">
 
           {/* Notification bell */}
           <div className="relative" ref={bellRef}>

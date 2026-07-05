@@ -312,27 +312,24 @@ export default function CheckerPage() {
         `).join('');
 
         chartsHtml = `
-          <div style="margin-bottom: 14px; border: 1px solid #e2e8f0; border-radius: 10px; padding: 14px; background: #f8fafc;">
-            <h3 style="margin: 0 0 10px; font-size: 12px; color: #1e293b; text-transform: uppercase;">Quantitative Risk Data</h3>
-            <table style="width: 100%; border-collapse: collapse;">
-              <tbody>
-                <tr>
-                  <td style="width: 25%; vertical-align: top; padding-right: 15px; border-right: 1px solid #cbd5e1;">
-                    <div style="font-size: 11px; color: #64748b; font-weight: bold; margin-bottom: 4px; text-transform: uppercase;">Overall Risk</div>
-                    <div style="font-size: 28px; font-weight: bold; color: #e11d48;">${results.chart_data.risk_score}%</div>
-                    <div style="font-size: 11px; color: #10b981; font-weight: bold; margin-top: 4px;">Safety Score: ${results.chart_data.safety_score}%</div>
-                  </td>
-                  <td style="width: 37.5%; vertical-align: top; padding: 0 15px; border-right: 1px solid #cbd5e1;">
-                    <div style="font-size: 11px; color: #64748b; font-weight: bold; margin-bottom: 8px; text-transform: uppercase;">Primary Risk Factors</div>
-                    ${severityBars}
-                  </td>
-                  <td style="width: 37.5%; vertical-align: top; padding-left: 15px;">
-                    <div style="font-size: 11px; color: #64748b; font-weight: bold; margin-bottom: 8px; text-transform: uppercase;">Alternatives Match</div>
-                    ${compareBars}
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+          <div style="margin-bottom: 20px; border: 1px solid #e2e8f0; border-radius: 10px; padding: 20px; background: #f8fafc;">
+            <h3 style="margin: 0 0 16px; font-size: 14px; color: #1e293b; text-transform: uppercase; border-bottom: 2px solid #e2e8f0; padding-bottom: 8px;">Quantitative Risk Data</h3>
+            
+            <div style="margin-bottom: 20px;">
+              <div style="font-size: 12px; color: #64748b; font-weight: bold; margin-bottom: 4px; text-transform: uppercase;">Overall Risk</div>
+              <div style="font-size: 32px; font-weight: bold; color: #e11d48; line-height: 1;">${results.chart_data.risk_score}%</div>
+              <div style="font-size: 12px; color: #10b981; font-weight: bold; margin-top: 6px;">Safety Score: ${results.chart_data.safety_score}%</div>
+            </div>
+
+            <div style="margin-bottom: 20px; padding-top: 16px; border-top: 1px solid #e2e8f0;">
+              <div style="font-size: 12px; color: #64748b; font-weight: bold; margin-bottom: 12px; text-transform: uppercase;">Primary Risk Factors</div>
+              ${severityBars}
+            </div>
+
+            <div style="padding-top: 16px; border-top: 1px solid #e2e8f0;">
+              <div style="font-size: 12px; color: #64748b; font-weight: bold; margin-bottom: 12px; text-transform: uppercase;">Alternatives Match</div>
+              ${compareBars}
+            </div>
           </div>
         `;
       }

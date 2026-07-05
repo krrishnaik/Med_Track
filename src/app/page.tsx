@@ -1,4 +1,4 @@
-import Link from 'next/link';
+ import Link from 'next/link';
 import { Shield, ArrowRight, Activity, Database, Server, Component } from 'lucide-react';
 import { MedTrackLogo } from '@/components/dashboard/Sidebar';
 

@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { LayoutDashboard, Stethoscope, History, Library, User, HeartPulse } from 'lucide-react';
+import { LayoutDashboard, Stethoscope, History, Library, User, HeartPulse, ChevronLeft, ChevronRight } from 'lucide-react';
 import clsx from 'clsx';
 import { twMerge } from 'tailwind-merge';
 
@@ -34,33 +34,42 @@ export function MedTrackLogo() {
   );
 }
 
-export default function Sidebar() {
+export default function Sidebar({ isCollapsed = false, toggleSidebar }: { isCollapsed?: boolean; toggleSidebar?: () => void }) {
   const pathname = usePathname();
 
   return (
-    <aside className="w-[280px] bg-white/70 backdrop-blur-xl fixed top-0 left-0 h-full border-r border-slate-100/60 flex flex-col z-20 shadow-sm shadow-slate-200/30">
+    <aside className={`bg-white/70 backdrop-blur-xl fixed top-0 left-0 h-full border-r border-slate-100/60 flex flex-col z-20 shadow-sm shadow-slate-200/30 transition-all duration-300 ease-in-out ${isCollapsed ? 'w-[88px]' : 'w-[280px]'}`}>
 
       {/* ── Brand Header ──────────────────────────────────────────────── */}
-      <div className="h-[72px] flex items-center px-6 border-b border-slate-100/60">
-        <Link href="/" className="flex items-center gap-3 group transition-all duration-300 hover:-translate-y-0.5">
+      <div className="h-[72px] flex items-center justify-between px-6 border-b border-slate-100/60">
+        <Link href="/" className={`flex items-center gap-3 group transition-all duration-300 hover:-translate-y-0.5 ${isCollapsed ? 'justify-center w-full' : ''}`}>
           <MedTrackLogo />
-          <div className="flex flex-col">
-            <span className="font-serif text-xl tracking-tight text-[var(--color-brand-teal-dark)] leading-none">
-              MedTrack
-            </span>
-            <span className="text-[9px] font-semibold text-slate-400 tracking-[0.15em] uppercase leading-none mt-1">
-              Health Intelligence
-            </span>
-          </div>
+          {!isCollapsed && (
+            <div className="flex flex-col overflow-hidden whitespace-nowrap transition-all duration-300">
+              <span className="font-serif text-xl tracking-tight text-[var(--color-brand-teal-dark)] leading-none">
+                MedTrack
+              </span>
+              <span className="text-[9px] font-semibold text-slate-400 tracking-[0.15em] uppercase leading-none mt-1">
+                Health Intelligence
+              </span>
+            </div>
+          )}
         </Link>
       </div>
 
       {/* ── Navigation ────────────────────────────────────────────────── */}
-      <nav className="flex-1 px-4 py-6 space-y-1.5 overflow-y-auto">
-        <div className="px-3 mb-4">
-          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.15em]">
-            Navigation
-          </p>
+      <nav className="flex-1 px-4 py-6 space-y-1.5 overflow-y-auto overflow-x-hidden">
+        <div className="px-3 mb-4 flex items-center justify-between">
+          {!isCollapsed && (
+            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.15em] whitespace-nowrap transition-opacity duration-300">
+              Navigation
+            </p>
+          )}
+          {toggleSidebar && (
+            <button onClick={toggleSidebar} className="p-1 rounded-md text-slate-400 hover:text-[var(--color-brand-teal)] hover:bg-[var(--color-brand-teal)]/10 transition-colors mx-auto" title={isCollapsed ? "Expand sidebar" : "Collapse sidebar"}>
+              {isCollapsed ? <ChevronRight className="w-4 h-4" /> : <ChevronLeft className="w-4 h-4" />}
+            </button>
+          )}
         </div>
 
         {navItems.map((item, i) => {
@@ -69,9 +78,10 @@ export default function Sidebar() {
             <Link
               key={item.href}
               href={item.href}
+              title={isCollapsed ? item.name : undefined}
               className={twMerge(
                 clsx(
-                  "flex items-center gap-3 px-4 py-3 rounded-[1rem] transition-all duration-300 ease-out font-medium text-sm relative group",
+                  "flex items-center gap-3 px-4 py-3 rounded-[1rem] transition-all duration-300 ease-out font-medium text-sm relative group overflow-hidden whitespace-nowrap",
                   isActive
                     ? "bg-[var(--color-brand-soft-teal)] text-[var(--color-brand-teal-dark)] font-semibold shadow-sm shadow-teal-900/5"
                     : "text-slate-500 hover:bg-slate-50/80 hover:text-slate-800 hover:-translate-y-0.5"
@@ -93,7 +103,7 @@ export default function Sidebar() {
               )}>
                 <item.icon className="w-[18px] h-[18px]" />
               </div>
-              <span className="tracking-tight">{item.name}</span>
+              {!isCollapsed && <span className="tracking-tight transition-opacity duration-300">{item.name}</span>}
             </Link>
           );
         })}
@@ -101,22 +111,26 @@ export default function Sidebar() {
 
       {/* ── Bottom CTA Card ───────────────────────────────────────────── */}
       <div className="p-4">
-        <div className="bg-gradient-to-br from-[var(--color-brand-soft-teal)] to-[var(--color-brand-lavender)] rounded-[1.5rem] p-5 text-center relative overflow-hidden">
+        <div className={clsx("bg-gradient-to-br from-[var(--color-brand-soft-teal)] to-[var(--color-brand-lavender)] rounded-[1.5rem] p-5 text-center relative overflow-hidden transition-all duration-300", isCollapsed ? 'p-3' : '')}>
           <div className="absolute -top-6 -right-6 w-20 h-20 bg-[var(--color-brand-teal)]/10 rounded-full blur-xl animate-breathe pointer-events-none" />
           <div className="relative z-10">
-            <div className="w-10 h-10 mx-auto mb-3 rounded-full bg-white/80 shadow-sm flex items-center justify-center">
+            <div className="w-10 h-10 mx-auto rounded-full bg-white/80 shadow-sm flex items-center justify-center mb-3">
               <HeartPulse className="w-5 h-5 text-[var(--color-brand-teal)]" />
             </div>
-            <p className="text-xs font-semibold text-slate-600 mb-1 tracking-tight">Need Help?</p>
-            <p className="text-[11px] text-slate-500 leading-relaxed mb-3">
-              Our clinical support team is here for you.
-            </p>
-            <a
-              href="mailto:support@medtrack.example.com?subject=MedTrack Support Request"
-              className="inline-flex items-center gap-1.5 text-xs font-bold text-white bg-gradient-to-r from-[var(--color-brand-teal)] to-[var(--color-brand-teal-dark)] px-4 py-2 rounded-full shadow-sm shadow-teal-900/15 transition-all duration-300 ease-out hover:-translate-y-0.5 hover:shadow-md hover:shadow-teal-900/20"
-            >
-              Contact Support
-            </a>
+            {!isCollapsed && (
+              <div className="transition-opacity duration-300">
+                <p className="text-xs font-semibold text-slate-600 mb-1 tracking-tight">Need Help?</p>
+                <p className="text-[11px] text-slate-500 leading-relaxed mb-3">
+                  Our clinical support team is here for you.
+                </p>
+                <a
+                  href="mailto:support@medtrack.example.com?subject=MedTrack Support Request"
+                  className="inline-flex items-center gap-1.5 text-xs font-bold text-white bg-gradient-to-r from-[var(--color-brand-teal)] to-[var(--color-brand-teal-dark)] px-4 py-2 rounded-full shadow-sm shadow-teal-900/15 transition-all duration-300 ease-out hover:-translate-y-0.5 hover:shadow-md hover:shadow-teal-900/20"
+                >
+                  Contact Support
+                </a>
+              </div>
+            )}
           </div>
         </div>
       </div>

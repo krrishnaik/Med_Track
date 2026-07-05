@@ -1,31 +1,29 @@
-<div align="center">
-
-# 💊 MedTrack — Health Intelligence Platform
+# MedTrack — Health Intelligence Platform
 
 **Clinical-grade AI that detects the Prescription Cascade before it harms you.**
 
 *Built for patients, caregivers, and clinical decision support researchers.*
 
-</div>
+**Live Deployment:** [MedTrack on Vercel](https://medtrack-coral.vercel.app/) (Replace with actual link)
 
 ---
 
-## 📋 Table of Contents
+## Table of Contents
 
-- [Overview](#-overview)
-- [Screenshots](#-screenshots)
-- [Architecture](#-architecture)
-- [Project Structure](#-project-structure)
-- [Installation & Setup](#-installation--setup)
-- [Running the Application](#-running-the-application)
-- [API Reference](#-api-reference)
-- [Demo](#-demo)
-- [Tech Stack](#-tech-stack)
-- [Clinical Disclaimer](#-clinical-disclaimer)
+- [Overview](#overview)
+- [Screenshots](#screenshots)
+- [Architecture](#architecture)
+- [Project Structure](#project-structure)
+- [Installation & Setup](#installation--setup)
+- [Running the Application](#running-the-application)
+- [Test Accounts](#test-accounts)
+- [Demo](#demo)
+- [Tech Stack](#tech-stack)
+- [Clinical Disclaimer](#clinical-disclaimer)
 
 ---
 
-## 📖 Overview
+## Overview
 
 A **Prescription Cascade** happens when the side effect of one drug is mistaken for a new condition, prompting a second prescription — which creates its own side effects, leading to a third, and so on. Standard pharmacy software only checks two drugs at a time and completely misses these compounding chain reactions.
 
@@ -35,36 +33,36 @@ It ingests your complete medication list, cross-references three drug-interactio
 
 ### Key Features
 
-**🧠 AI Cascade Checker**
+**AI Cascade Checker**
 The core of MedTrack. Submit your medication list and the system runs a 3-tier LLM analysis powered by `llama-3.3-70b-versatile` via Groq. You get a brief side-effect summary, a contextual interaction paragraph, and a full human-readable clinical report — each escalating in depth.
 
-**📷 Prescription OCR Scanner**
+**Prescription OCR Scanner**
 Upload a photo of any paper or digital prescription. The `llama-4-scout-17b` vision model reads the image, extracts every drug name and dosage, and identifies the likely prescribing specialist — with no manual entry required.
 
-**🎙️ Voice Dictation**
+**Voice Dictation**
 Speak your medications aloud directly into the browser. The Web Speech API captures a live transcript and the backend AI extracts a structured medication list from your natural language.
 
-**📚 Drug Library**
+**Drug Library**
 Browse a searchable A-Z encyclopedia of over 2,000 drugs sourced from multiple clinical datasets. Each entry includes known interactions, severity ratings, and cross-references.
 
-**☁️ Cloud History Sync**
+**Cloud History Sync**
 Every analysis you run is saved instantly to browser `localStorage` and asynchronously backed up to Firestore. Your history is available across devices and is never lost.
 
-**📄 PDF Report Export**
+**PDF Report Export**
 Generate a professionally formatted, branded PDF of any analysis — including the medication table, risk charts, and the full clinical report. Ready to share with your doctor.
 
-**🌐 Multi-language Analysis**
+**Multi-language Analysis**
 Switch the entire AI output between English, Hindi, and Marathi in real time. Designed to make clinical information accessible to a wider audience.
 
-**🔊 Read Aloud**
+**Read Aloud**
 The Web Speech Synthesis API narrates the complete analysis report in the selected language — useful for accessibility and hands-free review.
 
-**📊 Interactive Risk Dashboard**
+**Interactive Risk Dashboard**
 A visual home base that shows animated safety and risk scores, a log of recent analyses, and live severity status panels — all powered by Recharts.
 
 ---
 
-## 📸 Screenshots
+## Screenshots
 
 > **Dashboard — Interactive Risk Overview**
 
@@ -93,7 +91,7 @@ A visual home base that shows animated safety and risk scores, a log of recent a
 
 ---
 
-## 🏗️ Architecture
+## Architecture
 
 ```mermaid
 flowchart TD
@@ -148,7 +146,7 @@ flowchart TD
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 Med_Track/
@@ -195,7 +193,7 @@ Med_Track/
 
 ---
 
-## ⚙️ Installation & Setup
+## Installation & Setup
 
 ### Prerequisites
 
@@ -279,7 +277,7 @@ NEXT_PUBLIC_FIREBASE_APP_ID=your_app_id
 
 ---
 
-## 🚀 Running the Application
+## Running the Application
 
 You need **two terminals** running at the same time:
 
@@ -299,102 +297,46 @@ You need **two terminals** running at the same time:
 
 ---
 
-## 🔌 API Reference
+## Test Accounts
 
-All endpoints are served by the Flask backend at `http://localhost:5000`.
+For ease of review and testing, you can log in using the following test credentials without creating a new account:
 
-| Method | Endpoint | Description |
+| Account Type | Email | Password |
 |---|---|---|
-| `POST` | `/api/check-interactions` | Run full AI cascade analysis on a medication list |
-| `POST` | `/api/scan-prescription` | Extract medications from a base64 prescription image |
-| `POST` | `/api/extract-medications` | Extract medications from a voice dictation transcript |
-| `GET` | `/api/library/index` | Retrieve the full A-Z drug library |
-| `GET` | `/api/library/drug/<name>` | Get interaction details for a specific drug |
-
-**Example — Check Interactions:**
-
-```bash
-curl -X POST http://localhost:5000/api/check-interactions \
-  -H "Content-Type: application/json" \
-  -d '{
-    "medications": [
-      {"name": "Lisinopril", "dose": "10mg"},
-      {"name": "Ibuprofen", "dose": "400mg"},
-      {"name": "Metformin", "dose": "500mg"}
-    ],
-    "language": "English",
-    "context": {}
-  }'
-```
-
-**Response:**
-
-```json
-{
-  "status": "success",
-  "severity": "High",
-  "analyzed_count": 3,
-  "short_analysis": "...",
-  "medium_analysis": "...",
-  "detailed_report": "...",
-  "chart_data": {
-    "safety_score": 42,
-    "risk_score": 78,
-    "severity_bars": [{ "name": "Lisinopril + Ibuprofen", "percentage": 85 }],
-    "combination_comparison": [
-      { "label": "Current Risk", "value": 78 },
-      { "label": "Safer Alternative Risk", "value": 25 }
-    ]
-  }
-}
-```
+| **Demo Patient** | `patient@medtrack.demo` | `medtrack123` |
+| **Clinical User** | `clinical@medtrack.demo` | `medtrack123` |
 
 ---
 
-## 🎬 Demo
+## Demo
 
 | Resource | Link |
 |---|---|
-| 🎥 Video Demo | *(Insert YouTube / Vimeo link here)* |
-| 🎙️ Voice Dictation Audio | *(Insert audio file or link here)* |
-| 🌐 Live Deployment | *(Insert Vercel deployment URL here)* |
+| Live Deployment | [MedTrack on Vercel](https://medtrack-coral.vercel.app/) |
+| Video Demo | *(Insert YouTube / Vimeo link here)* |
 
 ---
 
-## 🧰 Tech Stack
+## Tech Stack
 
-<div align="center">
-
-### Frontend
-
-<img src="https://img.shields.io/badge/Next.js-16.2.4-000000?style=for-the-badge&logo=nextdotjs&logoColor=white" />
-<img src="https://img.shields.io/badge/React-19.2.4-61DAFB?style=for-the-badge&logo=react&logoColor=black" />
-<img src="https://img.shields.io/badge/TypeScript-5.x-3178C6?style=for-the-badge&logo=typescript&logoColor=white" />
-<img src="https://img.shields.io/badge/Tailwind_CSS-4.x-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white" />
-<img src="https://img.shields.io/badge/Recharts-3.8.1-22B5BF?style=for-the-badge&logo=chartdotjs&logoColor=white" />
-<img src="https://img.shields.io/badge/html2pdf.js-0.14.0-FF6B35?style=for-the-badge&logo=html5&logoColor=white" />
-<img src="https://img.shields.io/badge/Lucide_React-1.8.0-F56565?style=for-the-badge&logo=lucide&logoColor=white" />
-
-### Backend
-
-<img src="https://img.shields.io/badge/Python-3.10+-3776AB?style=for-the-badge&logo=python&logoColor=white" />
-<img src="https://img.shields.io/badge/Flask-3.1.3-000000?style=for-the-badge&logo=flask&logoColor=white" />
-<img src="https://img.shields.io/badge/Pillow-12.2.0-3776AB?style=for-the-badge&logo=python&logoColor=white" />
-<img src="https://img.shields.io/badge/Gunicorn-21.2.0-499848?style=for-the-badge&logo=gunicorn&logoColor=white" />
-
-### Cloud & AI
-
-<img src="https://img.shields.io/badge/Firebase-Auth_%26_Firestore-FFCA28?style=for-the-badge&logo=firebase&logoColor=black" />
-<img src="https://img.shields.io/badge/Google_Firestore-NoSQL-4285F4?style=for-the-badge&logo=googlecloud&logoColor=white" />
-<img src="https://img.shields.io/badge/Groq-LLaMA_3.3_70B-F55036?style=for-the-badge&logo=groq&logoColor=white" />
-<img src="https://img.shields.io/badge/Groq-LLaMA_4_Scout_17B-F55036?style=for-the-badge&logo=groq&logoColor=white" />
-<img src="https://img.shields.io/badge/Vercel-Deployment-000000?style=for-the-badge&logo=vercel&logoColor=white" />
-
-</div>
+![Python](https://img.shields.io/badge/PYTHON-3776AB?style=for-the-badge&logo=python&logoColor=white)
+![JavaScript](https://img.shields.io/badge/JAVASCRIPT-323330?style=for-the-badge&logo=javascript&logoColor=F7DF1E)
+![Markdown](https://img.shields.io/badge/MARKDOWN-000000?style=for-the-badge&logo=markdown&logoColor=white)
+![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
+![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
+![Render](https://img.shields.io/badge/RENDER-46E3B7?style=for-the-badge&logo=render&logoColor=white)
+![Vercel](https://img.shields.io/badge/VERCEL-000000?style=for-the-badge&logo=vercel&logoColor=white)
+![Next JS](https://img.shields.io/badge/NEXT.JS-000000?style=for-the-badge&logo=nextdotjs&logoColor=white)
+<br>
+![Figma](https://img.shields.io/badge/FIGMA-F24E1E?style=for-the-badge&logo=figma&logoColor=white)
+![FastAPI / Flask](https://img.shields.io/badge/FLASK-009688?style=for-the-badge&logo=flask&logoColor=white)
+![MongoDB / Firebase](https://img.shields.io/badge/FIREBASE-4CAF50?style=for-the-badge&logo=firebase&logoColor=white)
+![Groq](https://img.shields.io/badge/GROQ-F55036?style=for-the-badge&logo=groq&logoColor=white)
+![Tailwind](https://img.shields.io/badge/TAILWIND-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white)
 
 ---
 
-## 🏥 Clinical Disclaimer
+## Clinical Disclaimer
 
 > **MedTrack is NOT a medical device.**
 >
@@ -404,8 +346,4 @@ curl -X POST http://localhost:5000/api/check-interactions \
 
 ---
 
-<div align="center">
-
-© 2026 MedTrack · Made with ❤️ for safer medicine management.
-
-</div>
+© 2026 MedTrack · Made with care for safer medicine management.
